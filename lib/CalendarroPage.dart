@@ -8,9 +8,11 @@ class CalendarroPage extends StatelessWidget {
 
   DateTime pageStartDate;
   DateTime pageEndDate;
+  Widget weekdayLabelsRow;
+
   int startDayOffset;
 
-  CalendarroPage({this.pageStartDate, this.pageEndDate}) {
+  CalendarroPage({this.pageStartDate, this.pageEndDate, this.weekdayLabelsRow}) {
     startDayOffset = pageStartDate.weekday - DateTime.monday;
   }
 
@@ -26,7 +28,7 @@ class CalendarroPage extends StatelessWidget {
 
   List<Widget> buildRows(BuildContext context) {
     List<Widget> rows = [];
-    rows.add(CalendarroWeekdayLabelsView());
+    rows.add(weekdayLabelsRow);
 
     DateTime rowLastDayDate = pageStartDate.add(Duration(days: 6 - startDayOffset));
 

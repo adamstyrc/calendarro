@@ -41,6 +41,7 @@ class CalendarroDayItem extends StatelessWidget {
                     style: TextStyle(color: textColor),
                   ))),
           onTap: handleTap,
+          behavior: HitTestBehavior.translucent,
         ));
   }
 
