@@ -84,3 +84,8 @@ you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
   
   If you want to ignite some callbacks when selecting dates for now I suggest implementing Custom Day Tile Builder with GestureDetector and passing events through some EventBus (e.g. https://pub.dartlang.org/packages/event_bus)
   
+  
+  ## Advanced usage:
+  For more advanced usage see:
+  https://github.com/adamstyrc/parking-app
+  
