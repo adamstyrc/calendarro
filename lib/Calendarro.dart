@@ -14,7 +14,6 @@ enum DisplayMode { MONTHS, WEEKS }
 enum SelectionMode { SINGLE, MULTI }
 
 class Calendarro extends StatefulWidget {
-
   DateTime startDate;
   DateTime endDate;
   DisplayMode displayMode;
@@ -39,7 +38,14 @@ class Calendarro extends StatefulWidget {
       this.selectionMode = SelectionMode.SINGLE,
       this.weekdayLabelsRow})
       : super(key: key) {
+    if (startDate == null) {
+      startDate = DateUtils.getFirstDayOfCurrentMonth();
+    }
     startDate = DateUtils.toMidnight(startDate);
+
+    if (endDate == null) {
+      endDate = DateUtils.getLastDayOfCurrentMonth();
+    }
     endDate = DateUtils.toMidnight(endDate);
     startDayOffset = startDate.weekday - DateTime.monday;
 
@@ -196,7 +202,9 @@ class CalendarroState extends State<Calendarro> {
     }
 
     return CalendarroPage(
-        pageStartDate: pageStartDate, pageEndDate: pageEndDate, weekdayLabelsRow: widget.weekdayLabelsRow);
+        pageStartDate: pageStartDate,
+        pageEndDate: pageEndDate,
+        weekdayLabelsRow: widget.weekdayLabelsRow);
   }
 
   Widget buildCalendarPageInMonthsMode(int position) {
@@ -220,7 +228,10 @@ class CalendarroState extends State<Calendarro> {
     }
 
     return CalendarroPage(
-        pageStartDate: pageStartDate, pageEndDate: pageEndDate, weekdayLabelsRow: widget.weekdayLabelsRow,);
+      pageStartDate: pageStartDate,
+      pageEndDate: pageEndDate,
+      weekdayLabelsRow: widget.weekdayLabelsRow,
+    );
   }
 
   bool isDateSelected(DateTime date) {
