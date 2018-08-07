@@ -8,6 +8,6 @@ class DefaultDayTileBuilder extends DayTileBuilder {
 
   @override
   Widget build(BuildContext context, DateTime date) {
-    return CalendarroDayItem(date: date, calendarro: Calendarro.of(context));
+    return CalendarroDayItem(date: date, calendarroState: Calendarro.of(context));
   }
 }
