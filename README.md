@@ -5,8 +5,19 @@ Offers multiple ways to customize the widget.
 
 ## Getting Started
 
+### Installation
+Add dependency to your pubspec.yaml:
+
+```dart
+calendarro: ^0.0.1
+```
 
 ### Basic use
+First, add an import to your code:
+```dart
+import 'package:calendarro/calendarro.dart';
+```
+
 Add a widget to your code:
 ```dart
 Calendarro(
@@ -72,4 +83,9 @@ you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
   ### Selecting date callback
   
   If you want to ignite some callbacks when selecting dates for now I suggest implementing Custom Day Tile Builder with GestureDetector and passing events through some EventBus (e.g. https://pub.dartlang.org/packages/event_bus)
+  
+  
+  ## Advanced usage:
+  For more advanced usage see:
+  https://github.com/adamstyrc/parking-app
   
