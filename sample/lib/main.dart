@@ -35,18 +35,19 @@ class MyHomePage extends StatelessWidget {
             child: Calendarro(),
           ),
           Container(height: 32.0),
-//          Calendarro(
-//            startDate: DateUtils.getFirstDayOfCurrentMonth(),
-//            endDate: DateUtils.getLastDayOfNextMonth(),
-//            displayMode: DisplayMode.MONTHS,
-//            selectionMode: SelectionMode.MULTI,
-//            weekdayLabelsRow: CustomWeekdayLabelsRow(),
-//          )
+          Calendarro(
+            startDate: DateUtils.getFirstDayOfCurrentMonth(),
+            endDate: DateUtils.getLastDayOfNextMonth(),
+            displayMode: DisplayMode.MONTHS,
+            selectionMode: SelectionMode.MULTI,
+            weekdayLabelsRow: CustomWeekdayLabelsRow(),
+          )
         ],
       ),
     );
   }
 }
+
 
 class CustomWeekdayLabelsRow extends StatelessWidget {
 
