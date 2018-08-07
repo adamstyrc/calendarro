@@ -5,8 +5,18 @@ Offers multiple ways to customize the widget.
 
 ## Getting Started
 
+### Installation
+
+```dart
+calendarro: ^0.0.1
+```
 
 ### Basic use
+First, add an import to your code:
+```dart
+import 'package:calendarro/calendarro.dart';
+```
+
 Add a widget to your code:
 ```dart
 Calendarro(
