@@ -1,9 +1,16 @@
-# calendarro
+# Calendarro
 
-Implementation of calendar view for flutter.
+Calendar widget library for Flutter apps.
+Offers a way to customize the widget.
 
 ## Getting Started
 
-For help getting started with Flutter, view our online [documentation](https://flutter.io/).
-
-For help on editing package code, view the [documentation](https://flutter.io/developing-packages/).
+Add a widget to your code:
+```dart
+Calendarro(
+  displayMode: DisplayMode.WEEKS,
+  startDate: DateUtils.getFirstDayOfCurrentMonth(),
+  endDate: DateUtils.getLastDayOfCurrentMonth()
+  )
+```
+https://gfycat.com/AptGratefulBunting
