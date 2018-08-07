@@ -13,4 +13,4 @@ Calendarro(
   endDate: DateUtils.getLastDayOfCurrentMonth()
   )
 ```
-https://gfycat.com/AptGratefulBunting
+![alt tag](https://github.com/adamstyrc/calendarro/blob/master/sample1.gif)
