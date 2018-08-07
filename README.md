@@ -57,6 +57,16 @@ Calendarro(
 ```
 you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
 
+<b>5. Initial selected dates</b> - When you want some dates to be selected from the scratch, use selectedDates (SelectionMode.MULTI) or selectedDate (SelectionMode.SINGLE) arguments
+```dart
+Calendarro(
+  selectedDate: DateTime(2018, 8, 1)
+  selectedDates: [DateTime(2018, 8, 1), DateTime(2018, 8, 8)]
+  ...
+  )
+```
+you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
+
   
   
   
