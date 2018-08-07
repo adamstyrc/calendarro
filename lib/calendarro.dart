@@ -1,9 +1,9 @@
 library calendarro;
 
-import 'package:calendarro/CalendarroPage.dart';
-import 'package:calendarro/DefaultWeekdayLabelsRow.dart';
-import 'package:calendarro/DateUtils.dart';
-import 'package:calendarro/DefaultDayTileBuilder.dart';
+import 'package:calendarro/calendarro_page.dart';
+import 'package:calendarro/default_weekday_labels_row.dart';
+import 'package:calendarro/date_utils.dart';
+import 'package:calendarro/default_day_tile_builder.dart';
 import 'package:flutter/material.dart';
 
 abstract class DayTileBuilder {

@@ -1,5 +1,5 @@
-import 'package:calendarro/Calendarro.dart';
-import 'package:calendarro/DefaultWeekdayLabelsRow.dart';
+import 'package:calendarro/calendarro.dart';
+import 'package:calendarro/default_weekday_labels_row.dart';
 import 'package:flutter/material.dart';
 
 class CalendarroPage extends StatelessWidget {

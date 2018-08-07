@@ -1,8 +1,13 @@
 name: calendarro
 description: Calendar widget library for Flutter apps.
 version: 0.0.1
-author: Adam Styrc (Vattenfall)
+authors:
+- Adam Styrc <styrc.adam@gmail.com>
+- Adam Styrc at Vattenfall <adam.styrc@vattenfall.com>
 homepage: https://github.com/adamstyrc/calendarro
+
+environment:
+  sdk: '>1.19.0 <3.0.0'
 
 dependencies:
   flutter:

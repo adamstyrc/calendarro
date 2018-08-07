@@ -1,6 +1,6 @@
-import 'package:calendarro/DateUtils.dart';
+import 'package:calendarro/date_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:calendarro/Calendarro.dart';
+import 'package:calendarro/calendarro.dart';
 
 void main() => runApp(new MyApp());
 
