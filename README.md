@@ -6,6 +6,7 @@ Offers multiple ways to customize the widget.
 ## Getting Started
 
 ### Installation
+Add dependency to your pubspec.yaml:
 
 ```dart
 calendarro: ^0.0.1
