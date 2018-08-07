@@ -19,6 +19,8 @@ Calendarro(
 
 ### Customization
 
+![alt tag](https://github.com/adamstyrc/calendarro/blob/master/sample2.gif) 
+
 <b>1. Display Mode</b> - If you prefer to operate on multiple rows to see whole month, use:
 
 ```dart
@@ -45,8 +47,6 @@ Calendarro(
   )
 ```
 you can create your CustomWeekdayLabelsRow by looking at default CalendarroWeekdayLabelsView.
-
-![alt tag](https://github.com/adamstyrc/calendarro/blob/master/sample2.gif) 
 
 <b>4. Day Tile Builder</b> - If you want to build day tiles your own way, you can use:
 ```dart
