@@ -1,7 +1,7 @@
 # Calendarro
 
 Calendar widget library for Flutter apps.
-Offers a way to customize the widget.
+Offers multiple ways to customize the widget.
 
 ## Getting Started
 
