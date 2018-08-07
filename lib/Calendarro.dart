@@ -23,7 +23,7 @@ class Calendarro extends StatefulWidget {
   Widget weekdayLabelsRow;
 
   DateTime selectedDate;
-  List<DateTime> selectedDates = List();
+  List<DateTime> selectedDates;
 
   int startDayOffset;
   CalendarroState state;
@@ -49,6 +49,10 @@ class Calendarro extends StatefulWidget {
 
     if (weekdayLabelsRow == null) {
       weekdayLabelsRow = CalendarroWeekdayLabelsView();
+    }
+
+    if (selectedDates == null) {
+      selectedDates = List();
     }
   }
 
@@ -115,7 +119,22 @@ class CalendarroState extends State<Calendarro> {
 
   void setSelectedDate(DateTime date) {
     setState(() {
-      selectedDate = date;
+      if (widget.selectionMode == SelectionMode.SINGLE) {
+        selectedDate = date;
+      } else {
+        bool dateSelected = false;
+
+        for (var i = selectedDates.length - 1; i >= 0; i--) {
+          if (DateUtils.isSameDay(selectedDates[i], date)) {
+            selectedDates.removeAt(i);
+            dateSelected = true;
+          }
+        }
+
+        if (!dateSelected) {
+          selectedDates.add(date);
+        }
+      }
     });
   }
 

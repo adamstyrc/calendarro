@@ -29,19 +29,26 @@ class MyHomePage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text(title),
       ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
           children: <Widget>[
+            Container(
+              color: Colors.lightGreen,
+//              height: 100.0,
+              child: Calendarro(
+                displayMode: DisplayMode.WEEKS,
+                startDate: DateUtils.getFirstDayOfCurrentMonth(),
+                endDate: DateUtils.getLastDayOfCurrentMonth(),
+              ),
+            ),
+            Container(height: 32.0),
             Calendarro(
               startDate: DateUtils.getFirstDayOfCurrentMonth(),
               endDate: DateUtils.getLastDayOfNextMonth(),
               displayMode: DisplayMode.MONTHS,
-              selectionMode: SelectionMode.SINGLE,
+              selectionMode: SelectionMode.MULTI,
             )
           ],
         ),
-      )
     );
   }
 }
