@@ -1,5 +1,4 @@
 import 'package:calendarro/Calendarro.dart';
-import 'package:calendarro/CalendarroDayItem.dart';
 import 'package:calendarro/CalendarroWeekdayLabelsView.dart';
 import 'package:flutter/material.dart';
 
@@ -65,12 +64,8 @@ class CalendarroPage extends StatelessWidget {
     for (int i = 0; i < 7; i++) {
       if (i + 1 >= rowStartDate.weekday && i + 1 <= rowEndDate.weekday) {
         CalendarroState calendarroState = Calendarro.of(context);
-//        if (calendarro.widget.dayTileBuilder != null) {
           Widget dayTile = calendarroState.widget.dayTileBuilder.build(context, currentDate);
           items.add(dayTile);
-//        } else {
-//          items.add(CalendarroDayItem(date: currentDate));
-//        }
         currentDate = currentDate.add(Duration(days: 1));
       } else {
         items.add(Expanded(
