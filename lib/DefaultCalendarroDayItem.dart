@@ -19,7 +19,7 @@ class CalendarroDayItem extends StatelessWidget {
 
     BoxDecoration boxDecoration;
     if (daySelected) {
-      boxDecoration = BoxDecoration(color: Colors.white, shape: BoxShape.circle);
+      boxDecoration = BoxDecoration(color: Colors.blue, shape: BoxShape.circle);
     } else if (isToday) {
       boxDecoration = BoxDecoration(
           border: Border.all(
@@ -45,6 +45,8 @@ class CalendarroDayItem extends StatelessWidget {
   }
 
   void handleTap() {
+    print("onTap : $date");
+
     calendarroState.setSelectedDate(date);
     calendarroState.setCurrentDate(date);
   }

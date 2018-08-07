@@ -78,14 +78,21 @@ class Calendarro extends StatefulWidget {
         date.difference(DateUtils.toMidnight(startDate)).inDays;
     int weekendsDifference = ((daysDifference + startDate.weekday) / 7).toInt();
     var position = daysDifference - weekendsDifference * 2;
-    print("position: $position");
     return position;
   }
 
   int getPageForDate(DateTime date) {
-    int daysDifferenceFromStartDate = date.difference(startDate).inDays;
-    int page = (daysDifferenceFromStartDate + startDayOffset) ~/ 7;
-    return page;
+    if (displayMode == DisplayMode.WEEKS) {
+      int daysDifferenceFromStartDate = date
+          .difference(startDate)
+          .inDays;
+      int page = (daysDifferenceFromStartDate + startDayOffset) ~/ 7;
+      return page;
+    } else {
+      var monthDifference = (date.year * 12 + date.month) - (startDate.year * 12 + startDate.month);
+      print("getPageForDate: $monthDifference");
+      return monthDifference;
+    }
   }
 }
 
@@ -117,6 +124,7 @@ class CalendarroState extends State<Calendarro> {
   void setCurrentDate(DateTime date) {
     setState(() {
       int page = widget.getPageForDate(date);
+      print("setCurrentDate -> page:$page");
       pageView.controller.jumpToPage(page);
     });
   }
