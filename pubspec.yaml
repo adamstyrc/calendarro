@@ -1,8 +1,8 @@
 name: calendarro
-description: Implementation of calendar view for flutter.
+description: Calendar widget library for Flutter apps.
 version: 0.0.1
-author:
-homepage:
+author: Adam Styrc (Vattenfall)
+homepage: https://github.com/adamstyrc/calendarro
 
 dependencies:
   flutter:
