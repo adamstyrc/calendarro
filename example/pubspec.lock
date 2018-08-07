@@ -32,9 +32,9 @@ packages:
   calendarro:
     dependency: "direct dev"
     description:
-      path: ".."
-      relative: true
-    source: path
+      name: calendarro
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   charcode:
     dependency: transitive
