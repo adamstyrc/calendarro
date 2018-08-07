@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Calendarro Demo',
       theme: new ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: new MyHomePage(title: 'Calendarro Demo'),
     );
@@ -31,21 +31,17 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
-            color: Colors.lightGreen,
-            child: Calendarro(
-              displayMode: DisplayMode.WEEKS,
-              startDate: DateUtils.getFirstDayOfCurrentMonth(),
-              endDate: DateUtils.getLastDayOfCurrentMonth(),
-            ),
+            color: Colors.orange,
+            child: Calendarro(),
           ),
           Container(height: 32.0),
-          Calendarro(
-            startDate: DateUtils.getFirstDayOfCurrentMonth(),
-            endDate: DateUtils.getLastDayOfNextMonth(),
-            displayMode: DisplayMode.MONTHS,
-            selectionMode: SelectionMode.MULTI,
-            weekdayLabelsRow: CustomWeekdayLabelsRow(),
-          )
+//          Calendarro(
+//            startDate: DateUtils.getFirstDayOfCurrentMonth(),
+//            endDate: DateUtils.getLastDayOfNextMonth(),
+//            displayMode: DisplayMode.MONTHS,
+//            selectionMode: SelectionMode.MULTI,
+//            weekdayLabelsRow: CustomWeekdayLabelsRow(),
+//          )
         ],
       ),
     );
