@@ -20,7 +20,7 @@ class Calendarro extends StatefulWidget {
         this.startDate,
         this.endDate,
         this.displayMode = DisplayMode.WEEKS,
-        this.dayTileBuilder = const DefaultDayTileBuilder(),
+        this.dayTileBuilder,
         this.selectedDate,
         this.selectedDates,
         this.selectionMode = SelectionMode.SINGLE})
@@ -28,6 +28,10 @@ class Calendarro extends StatefulWidget {
 
     startDate = DateUtils.toMidnight(startDate);
     endDate = DateUtils.toMidnight(endDate);
+
+    if (dayTileBuilder == null) {
+      dayTileBuilder = DefaultDayTileBuilder();
+    }
   }
 
   DateTime selectedDate;
