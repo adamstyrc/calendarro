@@ -61,6 +61,7 @@ you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
 ```dart
 Calendarro(
   selectedDate: DateTime(2018, 8, 1)
+  //or
   selectedDates: [DateTime(2018, 8, 1), DateTime(2018, 8, 8)]
   ...
   )
@@ -68,5 +69,7 @@ Calendarro(
 you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
 
   
+  ### Selecting date callback
   
+  If you want to ignite some callbacks when selecting dates for now I suggest implementing Custom Day Tile Builder with GestureDetector and passing events through some EventBus (e.g. https://pub.dartlang.org/packages/event_bus)
   
