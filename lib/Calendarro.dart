@@ -1,7 +1,7 @@
 library calendarro;
 
 import 'package:calendarro/CalendarroPage.dart';
-import 'package:calendarro/CalendarroWeekdayLabelsView.dart';
+import 'package:calendarro/DefaultWeekdayLabelsRow.dart';
 import 'package:calendarro/DateUtils.dart';
 import 'package:calendarro/DefaultDayTileBuilder.dart';
 import 'package:flutter/material.dart';

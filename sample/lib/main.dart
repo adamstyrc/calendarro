@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-
   final String title;
 
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -30,26 +29,43 @@ class MyHomePage extends StatelessWidget {
         title: new Text(title),
       ),
       body: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.lightGreen,
-//              height: 100.0,
-              child: Calendarro(
-                displayMode: DisplayMode.WEEKS,
-                startDate: DateUtils.getFirstDayOfCurrentMonth(),
-                endDate: DateUtils.getLastDayOfCurrentMonth(),
-              ),
-            ),
-            Container(height: 32.0),
-            Calendarro(
+        children: <Widget>[
+          Container(
+            color: Colors.lightGreen,
+            child: Calendarro(
+              displayMode: DisplayMode.WEEKS,
               startDate: DateUtils.getFirstDayOfCurrentMonth(),
-              endDate: DateUtils.getLastDayOfNextMonth(),
-              displayMode: DisplayMode.MONTHS,
-              selectionMode: SelectionMode.MULTI,
-            )
-          ],
-        ),
+              endDate: DateUtils.getLastDayOfCurrentMonth(),
+            ),
+          ),
+          Container(height: 32.0),
+          Calendarro(
+            startDate: DateUtils.getFirstDayOfCurrentMonth(),
+            endDate: DateUtils.getLastDayOfNextMonth(),
+            displayMode: DisplayMode.MONTHS,
+            selectionMode: SelectionMode.MULTI,
+            weekdayLabelsRow: CustomWeekdayLabelsRow(),
+          )
+        ],
+      ),
     );
   }
 }
 
+class CustomWeekdayLabelsRow extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Expanded(child: Text("M", textAlign: TextAlign.center)),
+        Expanded(child: Text("T", textAlign: TextAlign.center)),
+        Expanded(child: Text("W", textAlign: TextAlign.center)),
+        Expanded(child: Text("T", textAlign: TextAlign.center)),
+        Expanded(child: Text("F", textAlign: TextAlign.center)),
+        Expanded(child: Text("S", textAlign: TextAlign.center)),
+        Expanded(child: Text("S", textAlign: TextAlign.center)),
+      ],
+    );
+  }
+}

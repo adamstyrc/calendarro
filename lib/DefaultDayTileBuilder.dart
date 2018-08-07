@@ -1,5 +1,5 @@
 import 'package:calendarro/Calendarro.dart';
-import 'package:calendarro/DefaultCalendarroDayItem.dart';
+import 'package:calendarro/DefaultDayTile.dart';
 import 'package:flutter/material.dart';
 
 class DefaultDayTileBuilder extends DayTileBuilder {
