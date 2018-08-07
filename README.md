@@ -19,7 +19,7 @@ Calendarro(
 
 ### Customization
 
-<b>Display Mode</b> - If you prefer to see multiple rows to see whole month use:
+<b>1. Display Mode</b> - If you prefer to operate on multiple rows to see whole month, use:
 
 ```dart
 Calendarro(
@@ -28,7 +28,7 @@ Calendarro(
   )
 ```
 
-<b>Selection Mode</b> - If you want to select multiple dates use:
+<b>2. Selection Mode</b> - If you want to select multiple dates, use:
 
 ```dart
 Calendarro(
@@ -37,7 +37,7 @@ Calendarro(
   )
 ```
 
-<b>Weekday Labels</b> - If you want to provide your own row widget for displaying weekday names use:
+<b>3. Weekday Labels</b> - If you want to provide your own row widget for displaying weekday names, use:
 ```dart
 Calendarro(
   weekdayLabelsRow: CustomWeekdayLabelsRow()
@@ -48,7 +48,14 @@ you can create your CustomWeekdayLabelsRow by looking at default CalendarroWeekd
 
 ![alt tag](https://github.com/adamstyrc/calendarro/blob/master/sample2.gif) 
 
-
+<b>4. Day Tile Builder</b> - If you want to build day tiles your own way, you can use:
+```dart
+Calendarro(
+  dayTileBuilder: CustomDayTileBuilder
+  ...
+  )
+```
+you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
 
   
   
