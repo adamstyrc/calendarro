@@ -7,23 +7,19 @@ class CalendarroDayItem extends StatelessWidget {
 
   DateTime date;
   CalendarroState calendarroState;
-  int count = 0;
-  BuildContext context;
 
   @override
   Widget build(BuildContext context) {
-    context = context;
     bool isWeekend = DateUtils.isWeekend(date);
     var textColor = isWeekend ? Colors.grey : Colors.black;
     bool isToday = DateUtils.isToday(date);
     calendarroState = Calendarro.of(context);
 
-    bool isSelected = calendarroState.isDateSelected(date);
+    bool daySelected = calendarroState.isDateSelected(date);
 
     BoxDecoration boxDecoration;
-    if (isSelected) {
-      boxDecoration =
-      BoxDecoration(color: Colors.white, shape: BoxShape.circle);
+    if (daySelected) {
+      boxDecoration = BoxDecoration(color: Colors.white, shape: BoxShape.circle);
     } else if (isToday) {
       boxDecoration = BoxDecoration(
           border: Border.all(

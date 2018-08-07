@@ -3,54 +3,61 @@ import 'package:calendarro/CalendarroWeekdayLabelsView.dart';
 import 'package:flutter/material.dart';
 
 class CalendarroPage extends StatelessWidget {
-  CalendarroPage({
-    this.pageStartDate,
-    this.pageEndDate,
-  });
+
+  static final MAX_ROWS_COUNT = 6;
 
   DateTime pageStartDate;
   DateTime pageEndDate;
+  int startDayOffset;
+
+  CalendarroPage({this.pageStartDate, this.pageEndDate}) {
+    startDayOffset = pageStartDate.weekday - DateTime.monday;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Column(
-            mainAxisSize: MainAxisSize.min, children: buildRows(context)));
+            children: buildRows(context),
+            mainAxisSize: MainAxisSize.min
+        )
+    );
   }
 
   List<Widget> buildRows(BuildContext context) {
     List<Widget> rows = [];
     rows.add(CalendarroWeekdayLabelsView());
 
-    int startDayOffset = pageStartDate.weekday - DateTime.monday;
-    DateTime weekLastDayDate =
-    pageStartDate.add(Duration(days: 6 - startDayOffset));
+    DateTime rowLastDayDate = pageStartDate.add(Duration(days: 6 - startDayOffset));
 
-    if (pageEndDate.isAfter(weekLastDayDate)) {
+    if (pageEndDate.isAfter(rowLastDayDate)) {
       rows.add(Row(
-          children: buildCalendarRow(context, pageStartDate, weekLastDayDate)));
+          children: buildCalendarRow(context, pageStartDate, rowLastDayDate))
+      );
 
-      for (var i = 1; i < 6; i++) {
-        DateTime nextWeekFirstDayDate =
-        pageStartDate.add(Duration(days: 7 * i - startDayOffset));
+      for (var i = 1; i < MAX_ROWS_COUNT; i++) {
+        DateTime nextRowFirstDayDate = pageStartDate.add(
+            Duration(days: 7 * i - startDayOffset));
 
-        if (nextWeekFirstDayDate.isAfter(pageEndDate)) {
+        if (nextRowFirstDayDate.isAfter(pageEndDate)) {
           break;
         }
 
-        DateTime nextWeekLastDayDate =
-        pageStartDate.add(Duration(days: 7 * i - startDayOffset + 6));
-        if (nextWeekLastDayDate.isAfter(pageEndDate)) {
-          nextWeekLastDayDate = pageEndDate;
+        DateTime nextRowLastDayDate = pageStartDate.add(
+            Duration(days: 7 * i - startDayOffset + 6));
+
+        if (nextRowLastDayDate.isAfter(pageEndDate)) {
+          nextRowLastDayDate = pageEndDate;
         }
 
         rows.add(Row(
             children: buildCalendarRow(
-                context, nextWeekFirstDayDate, nextWeekLastDayDate)));
+                context, nextRowFirstDayDate, nextRowLastDayDate)));
       }
     } else {
       rows.add(Row(
-          children: buildCalendarRow(context, pageStartDate, pageEndDate)));
+          children: buildCalendarRow(context, pageStartDate, pageEndDate))
+      );
     }
 
     return rows;
