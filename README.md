@@ -62,7 +62,7 @@ you can create your CustomWeekdayLabelsRow by looking at default CalendarroWeekd
 <b>4. Day Tile Builder</b> - If you want to build day tiles your own way, you can use:
 ```dart
 Calendarro(
-  dayTileBuilder: CustomDayTileBuilder
+  dayTileBuilder: CustomDayTileBuilder()
   ...
   )
 ```
