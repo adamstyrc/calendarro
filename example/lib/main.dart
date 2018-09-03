@@ -37,10 +37,8 @@ class MyHomePage extends StatelessWidget {
           ),
           Container(height: 32.0),
           Calendarro(
-//            startDate: DateUtils.getFirstDayOfCurrentMonth(),
-            startDate: DateUtils.getFirstDayOfNextMonth(),
+            startDate: DateUtils.getFirstDayOfCurrentMonth(),
             endDate: lastDayOfNextMonth,
-//            endDate: DateUtils.getLastDayOfNextMonth(),
             displayMode: DisplayMode.MONTHS,
             selectionMode: SelectionMode.MULTI,
             weekdayLabelsRow: CustomWeekdayLabelsRow(),
