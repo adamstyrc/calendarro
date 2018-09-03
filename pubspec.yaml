@@ -3,7 +3,6 @@ description: Calendar widget library for Flutter apps.
 version: 0.0.1
 authors:
 - Adam Styrc <styrc.adam@gmail.com>
-- Adam Styrc at Vattenfall <adam.styrc@vattenfall.com>
 homepage: https://github.com/adamstyrc/calendarro
 
 environment:
