@@ -17,6 +17,24 @@ class DateUtils {
     return date.isBefore(today);
   }
 
+  static DateTime addDaysToDate(DateTime date, int days) {
+    DateTime newDate = date.add(Duration(days: days));
+
+    if (date.hour != newDate.hour) {
+      var hoursDifference = date.hour - newDate.hour;
+
+      if (hoursDifference <= 3 && hoursDifference >= -3) {
+        newDate = newDate.add(Duration(hours: hoursDifference));
+      } else if (hoursDifference <= -21) {
+        newDate = newDate.add(Duration(hours: 24 + hoursDifference));
+      } else if (hoursDifference >= 21) {
+        newDate = newDate.add(Duration(hours: hoursDifference - 24));
+      }
+
+    }
+    return newDate;
+  }
+
   static bool isSpecialPastDay(DateTime date) {
     return isPastDay(date) || (isToday(date) && DateTime.now().hour >= 12);
   }
@@ -36,7 +54,7 @@ class DateUtils {
 
   static DateTime getFirstDayOfNextMonth() {
     var dateTime = getFirstDayOfCurrentMonth();
-    dateTime = dateTime.add(Duration(days: 31));
+    dateTime = addDaysToDate(dateTime, 31);
     dateTime = DateTime(dateTime.year, dateTime.month, 1);
     return dateTime;
   }
@@ -46,10 +64,9 @@ class DateUtils {
   }
 
   static DateTime getLastDayOfNextMonth() {
-    var nextMonth = getFirstDayOfNextMonth()
-        .add(Duration(days: 31));
-    return DateTime(nextMonth.year, nextMonth.month, 1)
-    .subtract(Duration(days: 1));
+    var nextNextMonth = addDaysToDate(getFirstDayOfCurrentMonth(), 32 * 2);
+    return DateTime(nextNextMonth.year, nextNextMonth.month, 1)
+        .subtract(Duration(days: 1));
   }
 
   static bool isSameDay(DateTime date1, DateTime date2) {

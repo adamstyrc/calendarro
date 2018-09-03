@@ -188,17 +188,13 @@ class CalendarroState extends State<Calendarro> {
 
     if (position == 0) {
       pageStartDate = widget.startDate;
-      pageEndDate =
-          widget.startDate.add(Duration(days: 6 - widget.startDayOffset));
+      pageEndDate = DateUtils.addDaysToDate(widget.startDate, 6 - widget.startDayOffset);
     } else if (position == pagesCount - 1) {
-      pageStartDate = widget.startDate
-          .add(Duration(days: 7 * position - widget.startDayOffset));
+      pageStartDate = DateUtils.addDaysToDate(widget.startDate, 7 * position - widget.startDayOffset);
       pageEndDate = widget.endDate;
     } else {
-      pageStartDate = widget.startDate
-          .add(Duration(days: 7 * position - widget.startDayOffset));
-      pageEndDate = widget.startDate
-          .add(Duration(days: 7 * position + 6 - widget.startDayOffset));
+      pageStartDate = DateUtils.addDaysToDate(widget.startDate, 7 * position - widget.startDayOffset);
+      pageEndDate = DateUtils.addDaysToDate(widget.startDate, 7 * position + 6 - widget.startDayOffset);
     }
 
     return CalendarroPage(
@@ -215,7 +211,7 @@ class CalendarroState extends State<Calendarro> {
       pageStartDate = widget.startDate;
       DateTime nextMonthFirstDate =
           DateTime(widget.startDate.year, widget.startDate.month + 1, 1);
-      pageEndDate = nextMonthFirstDate.subtract(Duration(days: 1));
+      pageEndDate = DateUtils.addDaysToDate(nextMonthFirstDate, -1);
     } else if (position == pagesCount - 1) {
       pageEndDate = widget.endDate;
       pageStartDate = DateTime(widget.endDate.year, widget.endDate.month, 1);
@@ -224,7 +220,7 @@ class CalendarroState extends State<Calendarro> {
           DateTime(widget.startDate.year, widget.startDate.month + position, 1);
       DateTime nextMonthFirstDate = DateTime(
           widget.startDate.year, widget.startDate.month + position + 1, 1);
-      pageEndDate = nextMonthFirstDate.subtract(Duration(days: 1));
+      pageEndDate = DateUtils.addDaysToDate(nextMonthFirstDate, -1);;
     }
 
     return CalendarroPage(

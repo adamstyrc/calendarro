@@ -24,6 +24,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lastDayOfNextMonth = DateUtils.getLastDayOfNextMonth();
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(title),
@@ -36,8 +37,10 @@ class MyHomePage extends StatelessWidget {
           ),
           Container(height: 32.0),
           Calendarro(
-            startDate: DateUtils.getFirstDayOfCurrentMonth(),
-            endDate: DateUtils.getLastDayOfNextMonth(),
+//            startDate: DateUtils.getFirstDayOfCurrentMonth(),
+            startDate: DateUtils.getFirstDayOfNextMonth(),
+            endDate: lastDayOfNextMonth,
+//            endDate: DateUtils.getLastDayOfNextMonth(),
             displayMode: DisplayMode.MONTHS,
             selectionMode: SelectionMode.MULTI,
             weekdayLabelsRow: CustomWeekdayLabelsRow(),
