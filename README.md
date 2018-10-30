@@ -22,7 +22,10 @@ Add a widget to your code:
 ```dart
 Calendarro(
   startDate: DateUtils.getFirstDayOfCurrentMonth(),
-  endDate: DateUtils.getLastDayOfCurrentMonth()
+  endDate: DateUtils.getLastDayOfCurrentMonth(),
+  onTap: (date){
+  
+  }
   )
 ```
 ![alt tag](https://github.com/adamstyrc/calendarro/blob/master/sample1.gif) 
@@ -78,12 +81,6 @@ Calendarro(
   )
 ```
 you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
-
-  
-  ### Selecting date callback
-  
-  If you want to ignite some callbacks when selecting dates for now I suggest implementing Custom Day Tile Builder with GestureDetector and passing events through some EventBus (e.g. https://pub.dartlang.org/packages/event_bus)
-  
   
   ## Advanced usage:
   For more advanced usage see:
