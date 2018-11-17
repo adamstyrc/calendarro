@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 6 August 2018
 
-* TODO: Describe initial release.
+* Introduce Calendarro!
+
+## [0.0.2] 17 November 2018
+
+* Add onTap callback for Calendarro

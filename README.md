@@ -9,7 +9,7 @@ Offers multiple ways to customize the widget.
 Add dependency to your pubspec.yaml:
 
 ```dart
-calendarro: ^0.0.1
+calendarro: ^0.0.2
 ```
 
 ### Basic use
