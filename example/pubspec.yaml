@@ -13,7 +13,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-#  calendarro: ^0.0.2
+#  calendarro: ^0.0.3
 
   calendarro:
     path: ../
