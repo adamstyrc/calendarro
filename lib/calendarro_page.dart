@@ -74,7 +74,7 @@ class CalendarroPage extends StatelessWidget {
     for (int i = 0; i < 7; i++) {
       if (i + 1 >= rowStartDate.weekday && i + 1 <= rowEndDate.weekday) {
         CalendarroState calendarroState = Calendarro.of(context);
-          Widget dayTile = calendarroState.widget.dayTileBuilder.build(context, currentDate);
+          Widget dayTile = calendarroState.widget.dayTileBuilder.build(context, currentDate, calendarroState.widget.onTap);
           items.add(dayTile);
         currentDate = currentDate.add(Duration(days: 1));
       } else {

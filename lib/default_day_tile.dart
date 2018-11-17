@@ -3,10 +3,11 @@ import 'package:calendarro/date_utils.dart';
 import 'package:flutter/material.dart';
 
 class CalendarroDayItem extends StatelessWidget {
-  CalendarroDayItem({this.date, this.calendarroState});
+  CalendarroDayItem({this.date, this.calendarroState, this.onTap});
 
   DateTime date;
   CalendarroState calendarroState;
+  DateTimeCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,9 @@ class CalendarroDayItem extends StatelessWidget {
   }
 
   void handleTap() {
-    print("onTap : $date");
+    if (onTap != null) {
+      onTap(date);
+    }
 
     calendarroState.setSelectedDate(date);
     calendarroState.setCurrentDate(date);

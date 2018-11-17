@@ -82,7 +82,16 @@ you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
   
   ### Selecting date callback
   
-  If you want to ignite some callbacks when selecting dates for now I suggest implementing Custom Day Tile Builder with GestureDetector and passing events through some EventBus (e.g. https://pub.dartlang.org/packages/event_bus)
+  If you want to get a callback when a date tile is clicked, there is onTap param:
+
+  ```dart
+  Calendarro(
+    onTap: (date) {
+        //your code
+    }
+    ...
+    )
+  ```
   
   
   ## Advanced usage:

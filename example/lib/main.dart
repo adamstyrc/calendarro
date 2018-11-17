@@ -42,6 +42,9 @@ class MyHomePage extends StatelessWidget {
             displayMode: DisplayMode.MONTHS,
             selectionMode: SelectionMode.MULTI,
             weekdayLabelsRow: CustomWeekdayLabelsRow(),
+            onTap: (date) {
+              print("onTap: $date");
+            },
           )
         ],
       ),

@@ -7,11 +7,13 @@ import 'package:calendarro/default_day_tile_builder.dart';
 import 'package:flutter/material.dart';
 
 abstract class DayTileBuilder {
-  Widget build(BuildContext context, DateTime date);
+  Widget build(BuildContext context, DateTime date, DateTimeCallback onTap);
 }
 
 enum DisplayMode { MONTHS, WEEKS }
 enum SelectionMode { SINGLE, MULTI }
+
+typedef void DateTimeCallback(DateTime datime);
 
 class Calendarro extends StatefulWidget {
   DateTime startDate;
@@ -20,6 +22,7 @@ class Calendarro extends StatefulWidget {
   SelectionMode selectionMode;
   DayTileBuilder dayTileBuilder;
   Widget weekdayLabelsRow;
+  DateTimeCallback onTap;
 
   DateTime selectedDate;
   List<DateTime> selectedDates;
@@ -36,6 +39,7 @@ class Calendarro extends StatefulWidget {
       this.selectedDate,
       this.selectedDates,
       this.selectionMode = SelectionMode.SINGLE,
+      this.onTap,
       this.weekdayLabelsRow})
       : super(key: key) {
     if (startDate == null) {
@@ -188,13 +192,17 @@ class CalendarroState extends State<Calendarro> {
 
     if (position == 0) {
       pageStartDate = widget.startDate;
-      pageEndDate = DateUtils.addDaysToDate(widget.startDate, 6 - widget.startDayOffset);
+      pageEndDate =
+          DateUtils.addDaysToDate(widget.startDate, 6 - widget.startDayOffset);
     } else if (position == pagesCount - 1) {
-      pageStartDate = DateUtils.addDaysToDate(widget.startDate, 7 * position - widget.startDayOffset);
+      pageStartDate = DateUtils.addDaysToDate(
+          widget.startDate, 7 * position - widget.startDayOffset);
       pageEndDate = widget.endDate;
     } else {
-      pageStartDate = DateUtils.addDaysToDate(widget.startDate, 7 * position - widget.startDayOffset);
-      pageEndDate = DateUtils.addDaysToDate(widget.startDate, 7 * position + 6 - widget.startDayOffset);
+      pageStartDate = DateUtils.addDaysToDate(
+          widget.startDate, 7 * position - widget.startDayOffset);
+      pageEndDate = DateUtils.addDaysToDate(
+          widget.startDate, 7 * position + 6 - widget.startDayOffset);
     }
 
     return CalendarroPage(
@@ -220,7 +228,8 @@ class CalendarroState extends State<Calendarro> {
           DateTime(widget.startDate.year, widget.startDate.month + position, 1);
       DateTime nextMonthFirstDate = DateTime(
           widget.startDate.year, widget.startDate.month + position + 1, 1);
-      pageEndDate = DateUtils.addDaysToDate(nextMonthFirstDate, -1);;
+      pageEndDate = DateUtils.addDaysToDate(nextMonthFirstDate, -1);
+      ;
     }
 
     return CalendarroPage(
