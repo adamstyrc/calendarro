@@ -9,3 +9,8 @@
 ## [0.0.3] 17 November 2018
 
 * Add onTap callback for Calendarro
+
+## [0.0.4] 17 November 2018
+
+* Change Calendarro height in month mode
+

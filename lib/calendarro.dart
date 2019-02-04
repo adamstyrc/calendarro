@@ -173,7 +173,7 @@ class CalendarroState extends State<Calendarro> {
     );
 
     return Container(
-        height: widget.displayMode == DisplayMode.WEEKS ? 60.0 : 320.0,
+        height: widget.displayMode == DisplayMode.WEEKS ? 60.0 : 260.0,
         child: pageView);
   }
 
