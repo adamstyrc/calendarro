@@ -157,9 +157,9 @@ class CalendarroState extends State<Calendarro> {
 
   @override
   Widget build(BuildContext context) {
-    int daysRange = widget.endDate.difference(widget.startDate).inDays;
     if (widget.displayMode == DisplayMode.WEEKS) {
-      pagesCount = daysRange ~/ 7 + 1;
+      int lastPage = widget.getPageForDate(widget.endDate);
+      pagesCount = lastPage + 1;
     } else {
       pagesCount = widget.endDate.month - widget.startDate.month + 1;
     }
