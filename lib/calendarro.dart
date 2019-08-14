@@ -75,7 +75,8 @@ class Calendarro extends StatefulWidget {
   @override
   CalendarroState createState() {
     state = CalendarroState(
-        selectedDate: selectedDate, selectedDates: selectedDates);
+        selectedDate: selectedDate,
+        selectedDates: selectedDates);
     return state;
   }
 
@@ -119,7 +120,10 @@ class CalendarroState extends State<Calendarro> {
   int pagesCount;
   PageView pageView;
 
-  CalendarroState({this.selectedDate, this.selectedDates});
+  CalendarroState({
+    this.selectedDate,
+    this.selectedDates
+  });
 
   @override
   void initState() {
@@ -198,7 +202,6 @@ class CalendarroState extends State<Calendarro> {
     } else {
       return buildCalendarPageInMonthsMode(position);
     }
-    //DisplayMode == WEEKS
   }
 
   Widget buildCalendarPageInWeeksMode(int position) {
