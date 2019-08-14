@@ -1,3 +1,8 @@
+## [1.0.0] 14 August 2019
+
+* Calculate height of Calendarro in dependency of max weeks number (MONTHLY mode).
+* Fix minor bugs with paging.
+
 ## [0.0.5] 17 November 2018
 
 * Fix counting pages for DisplayMode.WEEKS due to bug for February.
