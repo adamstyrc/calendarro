@@ -41,32 +41,45 @@ class DateUtils {
 
   static DateTime getFirstDayOfCurrentMonth() {
     var dateTime = DateTime.now();
-    dateTime = getFirstDayOfMonth(dateTime.month);
-    return dateTime;
-  }
-
-
-  static DateTime getFirstDayOfMonth(int month) {
-    var dateTime = DateTime.now();
-    dateTime = DateTime(dateTime.year, month, 1);
+    dateTime = getFirstDayOfMonth(dateTime);
     return dateTime;
   }
 
   static DateTime getFirstDayOfNextMonth() {
     var dateTime = getFirstDayOfCurrentMonth();
     dateTime = addDaysToDate(dateTime, 31);
-    dateTime = DateTime(dateTime.year, dateTime.month, 1);
+    dateTime = getFirstDayOfMonth(dateTime);
     return dateTime;
   }
 
   static DateTime getLastDayOfCurrentMonth() {
-    return getFirstDayOfNextMonth().subtract(Duration(days: 1));
+    return getLastDayOfMonth(DateTime.now());
   }
 
   static DateTime getLastDayOfNextMonth() {
-    var nextNextMonth = addDaysToDate(getFirstDayOfCurrentMonth(), 32 * 2);
-    return DateTime(nextNextMonth.year, nextNextMonth.month, 1)
-        .subtract(Duration(days: 1));
+    return getLastDayOfMonth(getFirstDayOfNextMonth());
+  }
+
+  static DateTime addMonths(DateTime fromMonth, int months) {
+    DateTime firstDayOfCurrentMonth = fromMonth;
+    for (int i = 0; i < months; i++) {
+      firstDayOfCurrentMonth =
+          getLastDayOfMonth(firstDayOfCurrentMonth)
+              .add(Duration(days: 1));
+    }
+    
+    return firstDayOfCurrentMonth;
+  }
+
+  static DateTime getFirstDayOfMonth(DateTime month) {
+    return DateTime(month.year, month.month);
+  }
+  
+  static DateTime getLastDayOfMonth(DateTime month) {
+    DateTime firstDayOfMonth = DateTime(month.year, month.month);
+    DateTime nextMonth = firstDayOfMonth.add(Duration(days: 31));
+    DateTime firstDayOfNextMonth = DateTime(nextMonth.year, nextMonth.month);
+    return firstDayOfNextMonth.subtract(Duration(days: 1));
   }
 
   static bool isSameDay(DateTime date1, DateTime date2) {
@@ -76,5 +89,56 @@ class DateUtils {
   static bool isCurrentMonth(DateTime date) {
     var now = DateTime.now();
     return date.month == now.month && date.year == now.year;
+  }
+  
+  static int calculateMaxWeeksNumberMonthly(
+      DateTime startDate,
+      DateTime endDate) {
+    
+    int monthsNumber = endDate.month - startDate.month + 1;
+    
+    List<int> weeksNumbersMonthly = List();
+
+
+    if (monthsNumber == 1) {
+      return calculateWeeksNumber(startDate, endDate);
+    } else {
+      weeksNumbersMonthly.add(
+          calculateWeeksNumber(startDate, getLastDayOfMonth(startDate))
+      );
+
+      DateTime firstDateOfMonth = getFirstDayOfMonth(startDate);
+      for (int i = 1; i <= monthsNumber - 2; i++) {
+        firstDateOfMonth = firstDateOfMonth.add(Duration(days: 31));
+        weeksNumbersMonthly.add(
+            calculateWeeksNumber(
+                firstDateOfMonth,
+                getLastDayOfMonth(firstDateOfMonth))
+        );
+      }
+
+      weeksNumbersMonthly.add(
+          calculateWeeksNumber(getFirstDayOfMonth(endDate), endDate)
+      );
+
+      weeksNumbersMonthly.sort((a, b) => b.compareTo(a));
+      return weeksNumbersMonthly[0];
+    }
+  }
+  
+  static int calculateWeeksNumber(
+      DateTime monthStartDate,
+      DateTime monthEndDate) {
+    int rowsNumber = 1;
+
+    DateTime currentDay = monthStartDate;
+    while (currentDay.isBefore(monthEndDate)) {
+      currentDay = currentDay.add(Duration(days: 1));
+      if (currentDay.weekday == DateTime.monday) {
+        rowsNumber += 1;
+      }
+    }
+
+    return rowsNumber;
   }
 }

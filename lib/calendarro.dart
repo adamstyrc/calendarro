@@ -30,18 +30,21 @@ class Calendarro extends StatefulWidget {
   int startDayOffset;
   CalendarroState state;
 
-  Calendarro(
-      {Key key,
-      this.startDate,
-      this.endDate,
-      this.displayMode = DisplayMode.WEEKS,
-      this.dayTileBuilder,
-      this.selectedDate,
-      this.selectedDates,
-      this.selectionMode = SelectionMode.SINGLE,
-      this.onTap,
-      this.weekdayLabelsRow})
-      : super(key: key) {
+  double dayTileHeight = 40.0;
+  double dayLabelHeight = 20.0;
+
+  Calendarro({
+    Key key,
+    this.startDate,
+    this.endDate,
+    this.displayMode = DisplayMode.WEEKS,
+    this.dayTileBuilder,
+    this.selectedDate,
+    this.selectedDates,
+    this.selectionMode = SelectionMode.SINGLE,
+    this.onTap,
+    this.weekdayLabelsRow,
+  }) : super(key: key) {
     if (startDate == null) {
       startDate = DateUtils.getFirstDayOfCurrentMonth();
     }
@@ -172,9 +175,21 @@ class CalendarroState extends State<Calendarro> {
               selectedDate != null ? widget.getPageForDate(selectedDate) : 0),
     );
 
+    double widgetHeight;
+    if (widget.displayMode == DisplayMode.WEEKS) {
+      widgetHeight = widget.dayLabelHeight + widget.dayTileHeight;
+    } else {
+      var maxWeeksNumber = DateUtils.calculateMaxWeeksNumberMonthly(
+          widget.startDate,
+          widget.endDate);
+      widgetHeight = widget.dayLabelHeight
+          + maxWeeksNumber * widget.dayTileHeight;
+    }
+
     return Container(
-        height: widget.displayMode == DisplayMode.WEEKS ? 60.0 : 260.0,
+        height: widgetHeight,
         child: pageView);
+
   }
 
   Widget buildCalendarPage(int position) {
@@ -217,19 +232,21 @@ class CalendarroState extends State<Calendarro> {
 
     if (position == 0) {
       pageStartDate = widget.startDate;
-      DateTime nextMonthFirstDate =
-          DateTime(widget.startDate.year, widget.startDate.month + 1, 1);
-      pageEndDate = DateUtils.addDaysToDate(nextMonthFirstDate, -1);
+      if (pagesCount <= 1) {
+        pageEndDate = widget.endDate;
+      } else {
+        var lastDayOfMonth = DateUtils.getLastDayOfMonth(widget.startDate);
+        pageEndDate = lastDayOfMonth;
+      }
     } else if (position == pagesCount - 1) {
+      pageStartDate = DateUtils.getFirstDayOfMonth(widget.endDate);
       pageEndDate = widget.endDate;
-      pageStartDate = DateTime(widget.endDate.year, widget.endDate.month, 1);
     } else {
-      pageStartDate =
-          DateTime(widget.startDate.year, widget.startDate.month + position, 1);
-      DateTime nextMonthFirstDate = DateTime(
-          widget.startDate.year, widget.startDate.month + position + 1, 1);
-      pageEndDate = DateUtils.addDaysToDate(nextMonthFirstDate, -1);
-      ;
+      DateTime firstDateOfCurrentMonth = DateUtils.addMonths(
+          widget.startDate,
+          position);
+      pageStartDate = firstDateOfCurrentMonth;
+      pageEndDate = DateUtils.getLastDayOfMonth(firstDateOfCurrentMonth);
     }
 
     return CalendarroPage(

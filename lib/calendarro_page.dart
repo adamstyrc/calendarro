@@ -13,7 +13,11 @@ class CalendarroPage extends StatelessWidget {
 
   int startDayOffset;
 
-  CalendarroPage({this.pageStartDate, this.pageEndDate, this.weekdayLabelsRow}) {
+  CalendarroPage({
+    this.pageStartDate,
+    this.pageEndDate,
+    this.weekdayLabelsRow
+  }) {
     startDayOffset = pageStartDate.weekday - DateTime.monday;
   }
 
@@ -32,7 +36,6 @@ class CalendarroPage extends StatelessWidget {
     rows.add(weekdayLabelsRow);
 
     DateTime rowLastDayDate = DateUtils.addDaysToDate(pageStartDate, 6 - startDayOffset);
-//    DateTime rowLastDayDate = pageStartDate.add(Duration(days: 6 - startDayOffset));
 
     if (pageEndDate.isAfter(rowLastDayDate)) {
       rows.add(Row(
@@ -74,7 +77,8 @@ class CalendarroPage extends StatelessWidget {
     for (int i = 0; i < 7; i++) {
       if (i + 1 >= rowStartDate.weekday && i + 1 <= rowEndDate.weekday) {
         CalendarroState calendarroState = Calendarro.of(context);
-          Widget dayTile = calendarroState.widget.dayTileBuilder.build(context, currentDate, calendarroState.widget.onTap);
+          Widget dayTile = calendarroState.widget.dayTileBuilder
+              .build(context, currentDate, calendarroState.widget.onTap);
           items.add(dayTile);
         currentDate = currentDate.add(Duration(days: 1));
       } else {
