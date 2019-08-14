@@ -25,10 +25,11 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var lastDayOfNextMonth = DateUtils.getLastDayOfNextMonth();
+    var startDate = DateUtils.getFirstDayOfNextMonth();
+    var endDate = DateUtils.getFirstDayOfCurrentMonth();
     monthCalendarro = Calendarro(
-            startDate: DateUtils.getFirstDayOfNextMonth(),
-            endDate: lastDayOfNextMonth,
+            startDate: startDate,
+            endDate: endDate,
             displayMode: DisplayMode.MONTHS,
             selectionMode: SelectionMode.MULTI,
             weekdayLabelsRow: CustomWeekdayLabelsRow(),
