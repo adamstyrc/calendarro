@@ -23,6 +23,7 @@ class Calendarro extends StatefulWidget {
   DayTileBuilder dayTileBuilder;
   Widget weekdayLabelsRow;
   DateTimeCallback onTap;
+  Color highlightColor;
 
   DateTime selectedDate;
   List<DateTime> selectedDates;
@@ -41,6 +42,7 @@ class Calendarro extends StatefulWidget {
     this.dayTileBuilder,
     this.selectedDate,
     this.selectedDates,
+    this.highlightColor = Colors.blue,
     this.selectionMode = SelectionMode.SINGLE,
     this.onTap,
     this.weekdayLabelsRow,
