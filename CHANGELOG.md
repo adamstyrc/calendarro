@@ -1,3 +1,7 @@
+## [1.0.1] 3 September 2019
+
+* Fix DateUtils.getLastDayOfMonth() method.
+
 ## [1.0.0] 14 August 2019
 
 * Calculate height of Calendarro in dependency of max weeks number (MONTHLY mode).
