@@ -77,7 +77,7 @@ class DateUtils {
   
   static DateTime getLastDayOfMonth(DateTime month) {
     DateTime firstDayOfMonth = DateTime(month.year, month.month);
-    DateTime nextMonth = firstDayOfMonth.add(Duration(days: 31));
+    DateTime nextMonth = firstDayOfMonth.add(Duration(days: 32));
     DateTime firstDayOfNextMonth = DateTime(nextMonth.year, nextMonth.month);
     return firstDayOfNextMonth.subtract(Duration(days: 1));
   }

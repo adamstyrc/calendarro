@@ -26,7 +26,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var startDate = DateUtils.getFirstDayOfNextMonth();
-    var endDate = DateUtils.getFirstDayOfCurrentMonth();
+    var endDate = DateUtils.getLastDayOfNextMonth();
     monthCalendarro = Calendarro(
             startDate: startDate,
             endDate: endDate,
