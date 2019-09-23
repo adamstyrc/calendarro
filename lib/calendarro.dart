@@ -1,6 +1,7 @@
 library calendarro;
 
 import 'package:calendarro/calendarro_page.dart';
+import 'package:calendarro/date_range.dart';
 import 'package:calendarro/default_weekday_labels_row.dart';
 import 'package:calendarro/date_utils.dart';
 import 'package:calendarro/default_day_tile_builder.dart';
@@ -13,7 +14,8 @@ abstract class DayTileBuilder {
 enum DisplayMode { MONTHS, WEEKS }
 enum SelectionMode { SINGLE, MULTI }
 
-typedef void DateTimeCallback(DateTime datime);
+typedef void DateTimeCallback(DateTime datetime);
+typedef void CurrentPageCallback(DateTime pageStartDate, DateTime pageEndDate);
 
 class Calendarro extends StatefulWidget {
   DateTime startDate;
@@ -23,6 +25,7 @@ class Calendarro extends StatefulWidget {
   DayTileBuilder dayTileBuilder;
   Widget weekdayLabelsRow;
   DateTimeCallback onTap;
+  CurrentPageCallback onPageSelected;
 
   DateTime selectedDate;
   List<DateTime> selectedDates;
@@ -43,6 +46,7 @@ class Calendarro extends StatefulWidget {
     this.selectedDates,
     this.selectionMode = SelectionMode.SINGLE,
     this.onTap,
+    this.onPageSelected,
     this.weekdayLabelsRow,
   }) : super(key: key) {
     if (startDate == null) {
@@ -94,7 +98,9 @@ class Calendarro extends StatefulWidget {
 
   int getPositionOfDate(DateTime date) {
     int daysDifference =
-        date.difference(DateUtils.toMidnight(startDate)).inDays;
+        date
+            .difference(DateUtils.toMidnight(startDate))
+            .inDays;
     int weekendsDifference = ((daysDifference + startDate.weekday) / 7).toInt();
     var position = daysDifference - weekendsDifference * 2;
     return position;
@@ -102,7 +108,9 @@ class Calendarro extends StatefulWidget {
 
   int getPageForDate(DateTime date) {
     if (displayMode == DisplayMode.WEEKS) {
-      int daysDifferenceFromStartDate = date.difference(startDate).inDays;
+      int daysDifferenceFromStartDate = date
+          .difference(startDate)
+          .inDays;
       int page = (daysDifferenceFromStartDate + startDayOffset) ~/ 7;
       return page;
     } else {
@@ -172,11 +180,17 @@ class CalendarroState extends State<Calendarro> {
     }
 
     pageView = PageView.builder(
-      itemBuilder: (context, position) => buildCalendarPage(position),
+      itemBuilder: (context, position) => _buildCalendarPage(position),
       itemCount: pagesCount,
       controller: PageController(
           initialPage:
-              selectedDate != null ? widget.getPageForDate(selectedDate) : 0),
+          selectedDate != null ? widget.getPageForDate(selectedDate) : 0),
+      onPageChanged: (page) {
+        if (widget.onPageSelected != null) {
+          DateRange pageDateRange = _calculatePageDateRange(page);
+          widget.onPageSelected(pageDateRange.startDate, pageDateRange.endDate);
+        }
+      },
     );
 
     double widgetHeight;
@@ -191,77 +205,19 @@ class CalendarroState extends State<Calendarro> {
     }
 
     return Container(
-        height: widgetHeight,
-        child: pageView);
+    height: widgetHeight,
+    child: pageView);
 
-  }
-
-  Widget buildCalendarPage(int position) {
-    if (widget.displayMode == DisplayMode.WEEKS) {
-      return buildCalendarPageInWeeksMode(position);
-    } else {
-      return buildCalendarPageInMonthsMode(position);
-    }
-  }
-
-  Widget buildCalendarPageInWeeksMode(int position) {
-    DateTime pageStartDate;
-    DateTime pageEndDate;
-
-    if (position == 0) {
-      pageStartDate = widget.startDate;
-      pageEndDate =
-          DateUtils.addDaysToDate(widget.startDate, 6 - widget.startDayOffset);
-    } else if (position == pagesCount - 1) {
-      pageStartDate = DateUtils.addDaysToDate(
-          widget.startDate, 7 * position - widget.startDayOffset);
-      pageEndDate = widget.endDate;
-    } else {
-      pageStartDate = DateUtils.addDaysToDate(
-          widget.startDate, 7 * position - widget.startDayOffset);
-      pageEndDate = DateUtils.addDaysToDate(
-          widget.startDate, 7 * position + 6 - widget.startDayOffset);
-    }
-
-    return CalendarroPage(
-        pageStartDate: pageStartDate,
-        pageEndDate: pageEndDate,
-        weekdayLabelsRow: widget.weekdayLabelsRow);
-  }
-
-  Widget buildCalendarPageInMonthsMode(int position) {
-    DateTime pageStartDate;
-    DateTime pageEndDate;
-
-    if (position == 0) {
-      pageStartDate = widget.startDate;
-      if (pagesCount <= 1) {
-        pageEndDate = widget.endDate;
-      } else {
-        var lastDayOfMonth = DateUtils.getLastDayOfMonth(widget.startDate);
-        pageEndDate = lastDayOfMonth;
-      }
-    } else if (position == pagesCount - 1) {
-      pageStartDate = DateUtils.getFirstDayOfMonth(widget.endDate);
-      pageEndDate = widget.endDate;
-    } else {
-      DateTime firstDateOfCurrentMonth = DateUtils.addMonths(
-          widget.startDate,
-          position);
-      pageStartDate = firstDateOfCurrentMonth;
-      pageEndDate = DateUtils.getLastDayOfMonth(firstDateOfCurrentMonth);
-    }
-
-    return CalendarroPage(
-      pageStartDate: pageStartDate,
-      pageEndDate: pageEndDate,
-      weekdayLabelsRow: widget.weekdayLabelsRow,
-    );
   }
 
   bool isDateSelected(DateTime date) {
     if (widget.selectionMode == SelectionMode.MULTI) {
-      return selectedDates.contains(date);
+      final matchedSelectedDate = selectedDates.firstWhere((currentDate) =>
+          DateUtils.isSameDay(currentDate, date),
+          orElse: () => null
+      );
+
+      return matchedSelectedDate != null;
     } else {
       return DateUtils.isSameDay(selectedDate, date);
     }
@@ -282,5 +238,90 @@ class CalendarroState extends State<Calendarro> {
 
   void update() {
     setState(() {});
+  }
+
+
+  Widget _buildCalendarPage(int position) {
+    if (widget.displayMode == DisplayMode.WEEKS) {
+      return _buildCalendarPageInWeeksMode(position);
+    } else {
+      return _buildCalendarPageInMonthsMode(position);
+    }
+  }
+
+  Widget _buildCalendarPageInWeeksMode(int position) {
+    DateRange pageDateRange = _calculatePageDateRange(position);
+
+    return CalendarroPage(
+        pageStartDate: pageDateRange.startDate,
+        pageEndDate: pageDateRange.endDate,
+        weekdayLabelsRow: widget.weekdayLabelsRow);
+  }
+
+  Widget _buildCalendarPageInMonthsMode(int position) {
+    DateRange pageDateRange = _calculatePageDateRangeInMonthsMode(position);
+
+    return CalendarroPage(
+      pageStartDate: pageDateRange.startDate,
+      pageEndDate: pageDateRange.endDate,
+      weekdayLabelsRow: widget.weekdayLabelsRow,
+    );
+  }
+
+  DateRange _calculatePageDateRange(int pagePosition) {
+    if (widget.displayMode == DisplayMode.WEEKS) {
+      return _calculatePageDateRangeInWeeksMode(pagePosition);
+    } else {
+      return _calculatePageDateRangeInMonthsMode(pagePosition);
+    }
+  }
+
+
+  DateRange _calculatePageDateRangeInMonthsMode(int pagePosition) {
+    DateTime pageStartDate;
+    DateTime pageEndDate;
+
+    if (pagePosition == 0) {
+      pageStartDate = widget.startDate;
+      if (pagesCount <= 1) {
+        pageEndDate = widget.endDate;
+      } else {
+        var lastDayOfMonth = DateUtils.getLastDayOfMonth(widget.startDate);
+        pageEndDate = lastDayOfMonth;
+      }
+    } else if (pagePosition == pagesCount - 1) {
+      pageStartDate = DateUtils.getFirstDayOfMonth(widget.endDate);
+      pageEndDate = widget.endDate;
+    } else {
+      DateTime firstDateOfCurrentMonth = DateUtils.addMonths(
+          widget.startDate,
+          pagePosition);
+      pageStartDate = firstDateOfCurrentMonth;
+      pageEndDate = DateUtils.getLastDayOfMonth(firstDateOfCurrentMonth);
+    }
+
+    return DateRange(pageStartDate, pageEndDate);
+  }
+
+  DateRange _calculatePageDateRangeInWeeksMode(int pagePosition) {
+    DateTime pageStartDate;
+    DateTime pageEndDate;
+
+    if (pagePosition == 0) {
+      pageStartDate = widget.startDate;
+      pageEndDate =
+          DateUtils.addDaysToDate(widget.startDate, 6 - widget.startDayOffset);
+    } else if (pagePosition == pagesCount - 1) {
+      pageStartDate = DateUtils.addDaysToDate(
+          widget.startDate, 7 * pagePosition - widget.startDayOffset);
+      pageEndDate = widget.endDate;
+    } else {
+      pageStartDate = DateUtils.addDaysToDate(
+          widget.startDate, 7 * pagePosition - widget.startDayOffset);
+      pageEndDate = DateUtils.addDaysToDate(
+          widget.startDate, 7 * pagePosition + 6 - widget.startDayOffset);
+    }
+
+    return DateRange(pageStartDate, pageEndDate);
   }
 }
