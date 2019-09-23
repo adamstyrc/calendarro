@@ -1,3 +1,8 @@
+## [1.1.0] 23 September 2019
+
+* Fix multiple dates selection.
+* Add CurrentPageCallback for getting selected page start and end dates.
+
 ## [1.0.1] 3 September 2019
 
 * Fix DateUtils.getLastDayOfMonth() method.
