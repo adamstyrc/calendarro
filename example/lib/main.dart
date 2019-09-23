@@ -34,7 +34,6 @@ class MyHomePage extends StatelessWidget {
         selectionMode: SelectionMode.MULTI,
         weekdayLabelsRow: CustomWeekdayLabelsRow(),
         onTap: (date) {
-          monthCalendarro.selectedDates;
           print("onTap: $date");
         });
     return new Scaffold(
