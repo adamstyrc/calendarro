@@ -1,3 +1,7 @@
+## [1.1.1] 3 October 2019
+
+* Fix calculating pages count when years change.
+
 ## [1.1.0] 23 September 2019
 
 * Fix multiple dates selection.
