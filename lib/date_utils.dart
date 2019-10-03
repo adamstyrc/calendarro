@@ -97,7 +97,7 @@ class DateUtils {
       DateTime startDate,
       DateTime endDate) {
     
-    int monthsNumber = endDate.month - startDate.month + 1;
+    int monthsNumber = calculateMonthsDifference(startDate, endDate);
     
     List<int> weeksNumbersMonthly = List();
 
@@ -126,6 +126,14 @@ class DateUtils {
       weeksNumbersMonthly.sort((a, b) => b.compareTo(a));
       return weeksNumbersMonthly[0];
     }
+  }
+
+  static int calculateMonthsDifference(
+      DateTime startDate,
+      DateTime endDate) {
+    var yearsDifference = endDate.year - startDate.year;
+    return 12 * yearsDifference
+        + endDate.month - startDate.month + 1;
   }
   
   static int calculateWeeksNumber(

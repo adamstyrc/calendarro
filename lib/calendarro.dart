@@ -58,6 +58,10 @@ class Calendarro extends StatefulWidget {
       endDate = DateUtils.getLastDayOfCurrentMonth();
     }
     endDate = DateUtils.toMidnight(endDate);
+
+    if (startDate.isAfter(endDate)) {
+      throw new ArgumentError("Calendarro: startDate is after the endDate");
+    }
     startDayOffset = startDate.weekday - DateTime.monday;
 
     if (dayTileBuilder == null) {
@@ -176,7 +180,9 @@ class CalendarroState extends State<Calendarro> {
       int lastPage = widget.getPageForDate(widget.endDate);
       pagesCount = lastPage + 1;
     } else {
-      pagesCount = widget.endDate.month - widget.startDate.month + 1;
+      pagesCount = DateUtils.calculateMonthsDifference(
+          widget.startDate,
+          widget.endDate);
     }
 
     pageView = PageView.builder(
