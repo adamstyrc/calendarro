@@ -1,3 +1,7 @@
+## [1.1.2] 9 October 2019
+
+* Fix DateUtils.calculateMonthsDifference() method.
+
 ## [1.1.1] 3 October 2019
 
 * Fix calculating pages count when years change.
