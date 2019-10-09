@@ -182,7 +182,7 @@ class CalendarroState extends State<Calendarro> {
     } else {
       pagesCount = DateUtils.calculateMonthsDifference(
           widget.startDate,
-          widget.endDate);
+          widget.endDate) + 1;
     }
 
     pageView = PageView.builder(

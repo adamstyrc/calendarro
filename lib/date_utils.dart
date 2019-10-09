@@ -102,7 +102,7 @@ class DateUtils {
     List<int> weeksNumbersMonthly = List();
 
 
-    if (monthsNumber == 1) {
+    if (monthsNumber == 0) {
       return calculateWeeksNumber(startDate, endDate);
     } else {
       weeksNumbersMonthly.add(
@@ -133,7 +133,7 @@ class DateUtils {
       DateTime endDate) {
     var yearsDifference = endDate.year - startDate.year;
     return 12 * yearsDifference
-        + endDate.month - startDate.month + 1;
+        + endDate.month - startDate.month;
   }
   
   static int calculateWeeksNumber(
