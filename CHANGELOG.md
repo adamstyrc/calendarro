@@ -1,3 +1,7 @@
+## [1.2.0] 4 March 2020
+
+* Add SelectionMode.RANGE for selecting range of dates (e.g. when booking a flight or a hotel)
+
 ## [1.1.2] 9 October 2019
 
 * Fix DateUtils.calculateMonthsDifference() method.

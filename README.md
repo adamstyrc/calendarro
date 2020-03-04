@@ -9,7 +9,7 @@ Offers multiple ways to customize the widget.
 Add dependency to your pubspec.yaml:
 
 ```dart
-calendarro: ^1.1.2
+calendarro: ^1.2.0
 ```
 
 ### Basic use
@@ -41,11 +41,20 @@ Calendarro(
   )
 ```
 
-<b>2. Selection Mode</b> - If you want to select multiple dates, use:
+<b>2. Selection Mode</b> -
 
+If you want to select multiple independent dates, use:
 ```dart
 Calendarro(
   selectionMode: SelectionMode.MULTI,
+  ...
+  )
+```
+
+If you want to select a range of dates, use:
+```dart
+Calendarro(
+  selectionMode: SelectionMode.RANGE,
   ...
   )
 ```
@@ -68,10 +77,10 @@ Calendarro(
 ```
 you can create your CustomDayTileBuilder looking upon DefaultDayTileBuilder.
 
-<b>5. Initial selected dates</b> - When you want some dates to be selected from the scratch, use selectedDate (SelectionMode.SINGLE) or selectedDates (SelectionMode.MULTI) arguments:
+<b>5. Initial selected dates</b> - When you want some dates to be selected at construction, use selectedSingleDate (SelectionMode.SINGLE) or selectedDates (SelectionMode.MULTI and SelectionMode.RANGE) arguments:
 ```dart
 Calendarro(
-  selectedDate: DateTime(2018, 8, 1)
+  selectedSingleDate: DateTime(2018, 8, 1)
   //or
   selectedDates: [DateTime(2018, 8, 1), DateTime(2018, 8, 8)]
   ...
