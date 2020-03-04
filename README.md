@@ -41,7 +41,7 @@ Calendarro(
   )
 ```
 
-<b>2. Selection Mode</b> -
+<b>2. Selection Mode</b>
 
 If you want to select multiple independent dates, use:
 ```dart
