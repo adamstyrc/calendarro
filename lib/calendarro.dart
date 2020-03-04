@@ -12,7 +12,7 @@ abstract class DayTileBuilder {
 }
 
 enum DisplayMode { MONTHS, WEEKS }
-enum SelectionMode { SINGLE, MULTI }
+enum SelectionMode { SINGLE, MULTI, RANGE }
 
 typedef void DateTimeCallback(DateTime datetime);
 typedef void CurrentPageCallback(DateTime pageStartDate, DateTime pageEndDate);
@@ -27,7 +27,7 @@ class Calendarro extends StatefulWidget {
   DateTimeCallback onTap;
   CurrentPageCallback onPageSelected;
 
-  DateTime selectedDate;
+  DateTime selectedSingleDate;
   List<DateTime> selectedDates;
 
   int startDayOffset;
@@ -42,7 +42,7 @@ class Calendarro extends StatefulWidget {
     this.endDate,
     this.displayMode = DisplayMode.WEEKS,
     this.dayTileBuilder,
-    this.selectedDate,
+    this.selectedSingleDate,
     this.selectedDates,
     this.selectionMode = SelectionMode.SINGLE,
     this.onTap,
@@ -83,7 +83,7 @@ class Calendarro extends StatefulWidget {
   @override
   CalendarroState createState() {
     state = CalendarroState(
-        selectedDate: selectedDate,
+        selectedSingleDate: selectedSingleDate,
         selectedDates: selectedDates);
     return state;
   }
@@ -126,14 +126,14 @@ class Calendarro extends StatefulWidget {
 }
 
 class CalendarroState extends State<Calendarro> {
-  DateTime selectedDate;
+  DateTime selectedSingleDate;
   List<DateTime> selectedDates;
 
   int pagesCount;
   PageView pageView;
 
   CalendarroState({
-    this.selectedDate,
+    this.selectedSingleDate,
     this.selectedDates
   });
 
@@ -141,28 +141,23 @@ class CalendarroState extends State<Calendarro> {
   void initState() {
     super.initState();
 
-    if (selectedDate == null) {
-      selectedDate = widget.startDate;
+    if (selectedSingleDate == null) {
+      selectedSingleDate = widget.startDate;
     }
   }
 
   void setSelectedDate(DateTime date) {
     setState(() {
-      if (widget.selectionMode == SelectionMode.SINGLE) {
-        selectedDate = date;
-      } else {
-        bool dateSelected = false;
-
-        for (var i = selectedDates.length - 1; i >= 0; i--) {
-          if (DateUtils.isSameDay(selectedDates[i], date)) {
-            selectedDates.removeAt(i);
-            dateSelected = true;
-          }
-        }
-
-        if (!dateSelected) {
-          selectedDates.add(date);
-        }
+      switch (widget.selectionMode) {
+        case SelectionMode.SINGLE:
+          selectedSingleDate = date;
+          break;
+        case SelectionMode.MULTI:
+          _setMultiSelectedDate(date);
+          break;
+        case SelectionMode.RANGE:
+          _setRangeSelectedDate(date);
+          break;
       }
     });
   }
@@ -190,7 +185,7 @@ class CalendarroState extends State<Calendarro> {
       itemCount: pagesCount,
       controller: PageController(
           initialPage:
-          selectedDate != null ? widget.getPageForDate(selectedDate) : 0),
+          selectedSingleDate != null ? widget.getPageForDate(selectedSingleDate) : 0),
       onPageChanged: (page) {
         if (widget.onPageSelected != null) {
           DateRange pageDateRange = _calculatePageDateRange(page);
@@ -211,21 +206,37 @@ class CalendarroState extends State<Calendarro> {
     }
 
     return Container(
-    height: widgetHeight,
-    child: pageView);
-
+        height: widgetHeight,
+        child: pageView);
   }
 
   bool isDateSelected(DateTime date) {
-    if (widget.selectionMode == SelectionMode.MULTI) {
-      final matchedSelectedDate = selectedDates.firstWhere((currentDate) =>
-          DateUtils.isSameDay(currentDate, date),
-          orElse: () => null
-      );
+    switch (widget.selectionMode) {
+      case SelectionMode.SINGLE:
+        return DateUtils.isSameDay(selectedSingleDate, date);
+        break;
+      case SelectionMode.MULTI:
+        final matchedSelectedDate = selectedDates.firstWhere((currentDate) =>
+            DateUtils.isSameDay(currentDate, date),
+            orElse: () => null
+        );
 
-      return matchedSelectedDate != null;
-    } else {
-      return DateUtils.isSameDay(selectedDate, date);
+        return matchedSelectedDate != null;
+        break;
+      case SelectionMode.RANGE:
+        switch (selectedDates.length) {
+          case 0:
+            return false;
+          case 1:
+            return DateUtils.isSameDay(selectedDates[0], date);
+          default:
+            var dateBetweenDatesRange = (date.isAfter(selectedDates[0])
+                && date.isBefore(selectedDates[1]));
+            return DateUtils.isSameDay(date, selectedDates[0])
+              || DateUtils.isSameDay(date, selectedDates[1])
+              || dateBetweenDatesRange;
+        }
+        break;
     }
   }
 
@@ -245,7 +256,6 @@ class CalendarroState extends State<Calendarro> {
   void update() {
     setState(() {});
   }
-
 
   Widget _buildCalendarPage(int position) {
     if (widget.displayMode == DisplayMode.WEEKS) {
@@ -281,7 +291,6 @@ class CalendarroState extends State<Calendarro> {
       return _calculatePageDateRangeInMonthsMode(pagePosition);
     }
   }
-
 
   DateRange _calculatePageDateRangeInMonthsMode(int pagePosition) {
     DateTime pageStartDate;
@@ -329,5 +338,40 @@ class CalendarroState extends State<Calendarro> {
     }
 
     return DateRange(pageStartDate, pageEndDate);
+  }
+
+  void _setRangeSelectedDate(DateTime date) {
+    switch (selectedDates.length) {
+      case 0:
+        selectedDates.add(date);
+        break;
+      case 1:
+        var firstDate = selectedDates[0];
+        if (firstDate.isBefore(date)) {
+          selectedDates.add(date);
+        } else {
+          selectedDates.clear();
+          selectedDates.add(date);
+          selectedDates.add(firstDate);
+        }
+        break;
+      default:
+        selectedDates.clear();
+        selectedDates.add(date);
+        break;
+    }
+  }
+
+  void _setMultiSelectedDate(DateTime date) {
+    final alreadyExistingDate = selectedDates.firstWhere((currentDate) =>
+        DateUtils.isSameDay(currentDate, date),
+        orElse: () => null
+    );
+
+    if (alreadyExistingDate != null) {
+      selectedDates.remove(alreadyExistingDate);
+    } else {
+      selectedDates.add(date);
+    }
   }
 }
