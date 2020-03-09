@@ -3,47 +3,63 @@ import 'package:calendarro/date_utils.dart';
 import 'package:flutter/material.dart';
 
 class CalendarroDayItem extends StatelessWidget {
-  CalendarroDayItem({this.date, this.calendarroState, this.onTap});
+  const CalendarroDayItem({
+    @required this.date,
+    @required this.calendarroState,
+    this.onTap,
+    this.textColor,
+    this.currentDayBorderColor,
+    this.selectedDayColor,
+  });
 
-  DateTime date;
-  CalendarroState calendarroState;
-  DateTimeCallback onTap;
+  final DateTime date;
+  final CalendarroState calendarroState;
+  final DateTimeCallback onTap;
+  final Color textColor;
+  final Color selectedDayColor;
+  final Color currentDayBorderColor;
 
   @override
   Widget build(BuildContext context) {
-    bool isWeekend = DateUtils.isWeekend(date);
-    var textColor = isWeekend ? Colors.grey : Colors.black;
-    bool isToday = DateUtils.isToday(date);
-    calendarroState = Calendarro.of(context);
+    final bool isToday = DateUtils.isToday(date);
 
-    bool daySelected = calendarroState.isDateSelected(date);
+    final bool daySelected = calendarroState.isDateSelected(date);
 
     BoxDecoration boxDecoration;
     if (daySelected) {
-      boxDecoration = BoxDecoration(color: Colors.blue, shape: BoxShape.circle);
+      boxDecoration = BoxDecoration(
+        color: selectedDayColor ?? Theme.of(context).accentColor,
+        shape: BoxShape.circle,
+      );
     } else if (isToday) {
       boxDecoration = BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-            width: 1.0,
-          ),
-          shape: BoxShape.circle);
+        border: Border.all(
+          color: currentDayBorderColor ?? Theme.of(context).accentColor,
+          width: 1.0,
+        ),
+        shape: BoxShape.circle,
+      );
     }
 
     return Expanded(
-        child: GestureDetector(
-          child: Container(
-              height: 40.0,
-              decoration: boxDecoration,
-              child: Center(
-                  child: Text(
-                    "${date.day}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: textColor),
-                  ))),
-          onTap: handleTap,
-          behavior: HitTestBehavior.translucent,
-        ));
+      child: GestureDetector(
+        child: Container(
+          height: 40.0,
+          decoration: boxDecoration,
+          child: Center(
+            child: Text(
+              '${date.day}',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: textColor ?? Colors.black,
+              ),
+            ),
+          ),
+        ),
+        onTap: handleTap,
+        behavior: HitTestBehavior.translucent,
+      ),
+    );
   }
 
   void handleTap() {
