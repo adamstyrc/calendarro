@@ -18,14 +18,14 @@ typedef void DateTimeCallback(DateTime datetime);
 typedef void CurrentPageCallback(DateTime pageStartDate, DateTime pageEndDate);
 
 class Calendarro extends StatefulWidget {
-  DateTime startDate;
-  DateTime endDate;
-  DisplayMode displayMode;
-  SelectionMode selectionMode;
-  DayTileBuilder dayTileBuilder;
-  Widget weekdayLabelsRow;
-  DateTimeCallback onTap;
-  CurrentPageCallback onPageSelected;
+  final DateTime startDate;
+  final DateTime endDate;
+  final DisplayMode displayMode;
+  final SelectionMode selectionMode;
+  final DayTileBuilder dayTileBuilder;
+  final Widget weekdayLabelsRow;
+  final DateTimeCallback onTap;
+  final CurrentPageCallback onPageSelected;
 
   DateTime selectedSingleDate;
   List<DateTime> selectedDates;
@@ -35,43 +35,26 @@ class Calendarro extends StatefulWidget {
 
   Calendarro({
     Key key,
-    this.startDate,
-    this.endDate,
+    startDate,
+    endDate,
     this.displayMode = DisplayMode.WEEKS,
-    this.dayTileBuilder,
+    dayTileBuilder,
     this.selectedSingleDate,
-    this.selectedDates,
+    selectedDates,
     this.selectionMode = SelectionMode.SINGLE,
     this.onTap,
     this.onPageSelected,
-    this.weekdayLabelsRow,
-  }) : super(key: key) {
-    if (startDate == null) {
-      startDate = DateUtils.getFirstDayOfCurrentMonth();
-    }
-    startDate = DateUtils.toMidnight(startDate);
-
-    if (endDate == null) {
-      endDate = DateUtils.getLastDayOfCurrentMonth();
-    }
-    endDate = DateUtils.toMidnight(endDate);
-
-    if (startDate.isAfter(endDate)) {
+    weekdayLabelsRow,
+  }) : this.startDate = DateUtils.toMidnight(startDate ?? DateUtils.getFirstDayOfCurrentMonth()),
+        this.endDate = DateUtils.toMidnight(endDate ?? DateUtils.getLastDayOfNextMonth()),
+        this.weekdayLabelsRow = weekdayLabelsRow ?? CalendarroWeekdayLabelsView(),
+        this.dayTileBuilder = dayTileBuilder ?? DefaultDayTileBuilder(),
+        this.selectedDates = selectedDates ?? [],
+        super(key: key) {
+    if (this.startDate.isAfter(this.endDate)) {
       throw new ArgumentError("Calendarro: startDate is after the endDate");
     }
     startDayOffset = startDate.weekday - DateTime.monday;
-
-    if (dayTileBuilder == null) {
-      dayTileBuilder = DefaultDayTileBuilder();
-    }
-
-    if (weekdayLabelsRow == null) {
-      weekdayLabelsRow = CalendarroWeekdayLabelsView();
-    }
-
-    if (selectedDates == null) {
-      selectedDates = List();
-    }
   }
 
   static CalendarroState of(BuildContext context) =>
