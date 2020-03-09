@@ -123,10 +123,7 @@ class CalendarroState extends State<Calendarro> {
   @override
   void initState() {
     super.initState();
-
-    if (selectedSingleDate == null) {
-      selectedSingleDate = widget.startDate;
-    }
+    selectedSingleDate = selectedSingleDate ?? widget.startDate;
   }
 
   void setSelectedDate(DateTime date) {
@@ -168,7 +165,7 @@ class CalendarroState extends State<Calendarro> {
       itemCount: pagesCount,
       controller: PageController(
           initialPage:
-          selectedSingleDate != null ? widget.getPageForDate(selectedSingleDate) : 0),
+          widget.getPageForDate(selectedSingleDate) ?? 0),
       onPageChanged: (page) {
         if (widget.onPageSelected != null) {
           DateRange pageDateRange = _calculatePageDateRange(page);
