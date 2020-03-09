@@ -167,10 +167,8 @@ class CalendarroState extends State<Calendarro> {
           initialPage:
           widget.getPageForDate(selectedSingleDate) ?? 0),
       onPageChanged: (page) {
-        if (widget.onPageSelected != null) {
-          DateRange pageDateRange = _calculatePageDateRange(page);
-          widget.onPageSelected(pageDateRange.startDate, pageDateRange.endDate);
-        }
+        DateRange pageDateRange = _calculatePageDateRange(page);
+        widget.onPageSelected?.call(pageDateRange.startDate, pageDateRange.endDate);
       },
     );
 
