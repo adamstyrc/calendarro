@@ -33,9 +33,6 @@ class Calendarro extends StatefulWidget {
   int startDayOffset;
   CalendarroState state;
 
-  double dayTileHeight = 40.0;
-  double dayLabelHeight = 20.0;
-
   Calendarro({
     Key key,
     this.startDate,
@@ -126,6 +123,9 @@ class Calendarro extends StatefulWidget {
 }
 
 class CalendarroState extends State<Calendarro> {
+  final double dayTileHeight = 40.0;
+  final double dayLabelHeight = 20.0;
+
   DateTime selectedSingleDate;
   List<DateTime> selectedDates;
 
@@ -196,13 +196,13 @@ class CalendarroState extends State<Calendarro> {
 
     double widgetHeight;
     if (widget.displayMode == DisplayMode.WEEKS) {
-      widgetHeight = widget.dayLabelHeight + widget.dayTileHeight;
+      widgetHeight = dayLabelHeight + dayTileHeight;
     } else {
       var maxWeeksNumber = DateUtils.calculateMaxWeeksNumberMonthly(
           widget.startDate,
           widget.endDate);
-      widgetHeight = widget.dayLabelHeight
-          + maxWeeksNumber * widget.dayTileHeight;
+      widgetHeight = dayLabelHeight
+          + maxWeeksNumber * dayTileHeight;
     }
 
     return Container(
