@@ -53,9 +53,9 @@ class Calendarro extends StatefulWidget {
       this.dayTileBuilder = dayTileBuilder ?? DefaultDayTileBuilder(),
       super(key: key) {
     if (this.startDate.isAfter(this.endDate)) {
-      throw new ArgumentError("Calendarro: startDate is after the endDate");
+      throw ArgumentError("Calendarro: startDate is after the endDate");
     }
-    startDayOffset = startDate.weekday - DateTime.monday;
+    startDayOffset = this.startDate.weekday - DateTime.monday;
   }
 
   static CalendarroState of(BuildContext context) =>
@@ -86,7 +86,7 @@ class Calendarro extends StatefulWidget {
         date
             .difference(DateUtils.toMidnight(startDate))
             .inDays;
-    int weekendsDifference = ((daysDifference + startDate.weekday) / 7).toInt();
+    int weekendsDifference = (daysDifference + startDate.weekday) ~/ 7;
     var position = daysDifference - weekendsDifference * 2;
     return position;
   }
@@ -240,6 +240,8 @@ class CalendarroState extends State<Calendarro> {
               || dateBetweenDatesRange;
         }
         break;
+      default:
+        throw ArgumentError("Calendarro: ${widget.selectionMode} is is Not supported selectionMode");
     }
   }
 
