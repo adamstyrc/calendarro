@@ -7,19 +7,17 @@ class CalendarroPage extends StatelessWidget {
 
   static final MAX_ROWS_COUNT = 6;
 
-  DateTime pageStartDate;
-  DateTime pageEndDate;
-  Widget weekdayLabelsRow;
+  final DateTime pageStartDate;
+  final DateTime pageEndDate;
+  final Widget weekdayLabelsRow;
 
-  int startDayOffset;
+  final int startDayOffset;
 
   CalendarroPage({
     this.pageStartDate,
     this.pageEndDate,
     this.weekdayLabelsRow
-  }) {
-    startDayOffset = pageStartDate.weekday - DateTime.monday;
-  }
+  }) : this.startDayOffset = pageStartDate.weekday - DateTime.monday;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class CalendarroPage extends StatelessWidget {
   }
 
   List<Widget> buildRows(BuildContext context) {
-    List<Widget> rows = [];
+    final List<Widget> rows = [];
     rows.add(weekdayLabelsRow);
 
     DateTime rowLastDayDate = DateUtils.addDaysToDate(pageStartDate, 6 - startDayOffset);
@@ -71,7 +69,7 @@ class CalendarroPage extends StatelessWidget {
 
   List<Widget> buildCalendarRow(
       BuildContext context, DateTime rowStartDate, DateTime rowEndDate) {
-    List<Widget> items = [];
+    final List<Widget> items = [];
 
     DateTime currentDate = rowStartDate;
     for (int i = 0; i < 7; i++) {

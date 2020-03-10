@@ -1,6 +1,6 @@
 class DateRange {
-  DateTime startDate;
-  DateTime endDate;
+  final DateTime startDate;
+  final DateTime endDate;
 
   DateRange(this.startDate, this.endDate);
 }
