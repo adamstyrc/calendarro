@@ -143,9 +143,7 @@ class DateUtils {
 
     DateTime currentDay = monthStartDate;
     while (currentDay.isBefore(monthEndDate)) {
-      currentDay = currentDay.add(Duration(days: 7
-      )
-      );
+      currentDay = currentDay.add(Duration(days: 7));
       rowsNumber += 1;
     }
 
