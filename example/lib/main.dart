@@ -25,8 +25,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var startDate = DateUtils.getFirstDayOfCurrentMonth();
-    var endDate = DateUtils.getLastDayOfNextMonth();
+    final startDate = DateUtils.getFirstDayOfCurrentMonth();
+    final endDate = DateUtils.getLastDayOfNextMonth();
     monthCalendarro = Calendarro(
         startDate: startDate,
         endDate: endDate,
@@ -35,10 +35,14 @@ class MyHomePage extends StatelessWidget {
         weekdayLabelsRow: CustomWeekdayLabelsRow(),
         onTap: (date) {
           print("onTap: $date");
-        });
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(title),
+        },
+      onSelectChange: (list){
+          print(list.toString());
+      },
+    );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
       ),
       body: Column(
         children: <Widget>[
