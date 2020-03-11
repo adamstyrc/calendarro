@@ -27,8 +27,8 @@ class Calendarro extends StatefulWidget {
   final DateTimeCallback onTap;
   final CurrentPageCallback onPageSelected;
 
-  DateTime selectedSingleDate;
-  List<DateTime> selectedDates;
+  final DateTime selectedSingleDate;
+  final List<DateTime> selectedDates;
 
   int startDayOffset;
   CalendarroState state;
