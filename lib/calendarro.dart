@@ -63,8 +63,8 @@ class Calendarro extends StatefulWidget {
   @override
   CalendarroState createState() {
     state = CalendarroState(
-        selectedSingleDate: selectedSingleDate,
-        selectedDates: selectedDates);
+      selectedSingleDate: selectedSingleDate ?? startDate,
+      selectedDates: selectedDates ?? []);
     return state;
   }
 
