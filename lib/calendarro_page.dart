@@ -1,33 +1,32 @@
 import 'package:calendarro/calendarro.dart';
 import 'package:calendarro/date_utils.dart';
-import 'package:calendarro/default_weekday_labels_row.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_widgets/responsive_widgets.dart';
 
 class CalendarroPage extends StatelessWidget {
-
+  // ignore: non_constant_identifier_names
   static final MAX_ROWS_COUNT = 6;
 
-  DateTime pageStartDate;
-  DateTime pageEndDate;
-  Widget weekdayLabelsRow;
+  final DateTime pageStartDate;
+  final DateTime pageEndDate;
+  final Widget weekdayLabelsRow;
 
-  int startDayOffset;
+  final int startDayOffset;
 
-  CalendarroPage({
-    this.pageStartDate,
-    this.pageEndDate,
-    this.weekdayLabelsRow
-  }) {
-    startDayOffset = pageStartDate.weekday - DateTime.monday;
-  }
+  CalendarroPage(
+      {this.pageStartDate,
+      this.pageEndDate,
+      this.weekdayLabelsRow,
+      this.startDayOffset});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-            children: buildRows(context),
-            mainAxisSize: MainAxisSize.min
-        )
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: buildRows(context),
+        mainAxisSize: MainAxisSize.min,
+      ),
     );
   }
 
@@ -35,34 +34,60 @@ class CalendarroPage extends StatelessWidget {
     List<Widget> rows = [];
     rows.add(weekdayLabelsRow);
 
-    DateTime rowLastDayDate = DateUtils.addDaysToDate(pageStartDate, 6 - startDayOffset);
+    DateTime rowLastDayDate = DateUtils.addDaysToDate(
+      pageStartDate,
+      6 - startDayOffset,
+    );
 
     if (pageEndDate.isAfter(rowLastDayDate)) {
-      rows.add(Row(
-          children: buildCalendarRow(context, pageStartDate, rowLastDayDate))
+      rows.add(
+        Padding(
+          padding: EdgeInsetsResponsive.symmetric(
+            vertical: 16.0,
+          ),
+          child: Row(
+            children: buildCalendarRow(context, pageStartDate, rowLastDayDate),
+          ),
+        ),
       );
 
       for (var i = 1; i < MAX_ROWS_COUNT; i++) {
-        DateTime nextRowFirstDayDate = DateUtils.addDaysToDate(pageStartDate, 7 * i - startDayOffset);
+        DateTime nextRowFirstDayDate =
+            DateUtils.addDaysToDate(pageStartDate, 7 * i - startDayOffset);
 
         if (nextRowFirstDayDate.isAfter(pageEndDate)) {
           break;
         }
 
-        DateTime nextRowLastDayDate = DateUtils.addDaysToDate(pageStartDate, 7 * i - startDayOffset + 6);
-
+        DateTime nextRowLastDayDate =
+            DateUtils.addDaysToDate(pageStartDate, 7 * i - startDayOffset + 6);
 
         if (nextRowLastDayDate.isAfter(pageEndDate)) {
           nextRowLastDayDate = pageEndDate;
         }
 
-        rows.add(Row(
-            children: buildCalendarRow(
-                context, nextRowFirstDayDate, nextRowLastDayDate)));
+        rows.add(
+          Padding(
+            padding: EdgeInsetsResponsive.symmetric(
+              vertical: 16.0,
+            ),
+            child: Row(
+              children: buildCalendarRow(
+                  context, nextRowFirstDayDate, nextRowLastDayDate),
+            ),
+          ),
+        );
       }
     } else {
-      rows.add(Row(
-          children: buildCalendarRow(context, pageStartDate, pageEndDate))
+      rows.add(
+        Padding(
+          padding: EdgeInsetsResponsive.symmetric(
+            vertical: 16.0,
+          ),
+          child: Row(
+            children: buildCalendarRow(context, pageStartDate, pageEndDate),
+          ),
+        ),
       );
     }
 
@@ -77,14 +102,16 @@ class CalendarroPage extends StatelessWidget {
     for (int i = 0; i < 7; i++) {
       if (i + 1 >= rowStartDate.weekday && i + 1 <= rowEndDate.weekday) {
         CalendarroState calendarroState = Calendarro.of(context);
-          Widget dayTile = calendarroState.widget.dayTileBuilder
-              .build(context, currentDate, calendarroState.widget.onTap);
-          items.add(dayTile);
+        Widget dayTile = calendarroState.widget.dayTileBuilder
+            .build(context, currentDate, calendarroState.widget.onTap);
+        items.add(dayTile);
         currentDate = currentDate.add(Duration(days: 1));
       } else {
-        items.add(Expanded(
-          child: Text(""),
-        ));
+        items.add(
+          Expanded(
+            child: Text(""),
+          ),
+        );
       }
     }
 
