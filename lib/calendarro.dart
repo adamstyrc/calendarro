@@ -4,6 +4,7 @@ import 'package:calendarro/calendarro_page.dart';
 import 'package:calendarro/date_range.dart';
 import 'package:calendarro/date_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_widgets/responsive_widgets.dart';
 
 abstract class DayTileBuilder {
   Widget build(BuildContext context, DateTime date, DateTimeCallback onTap);
@@ -135,6 +136,12 @@ class CalendarroState extends State<Calendarro> {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveWidgets.init(
+      context,
+      height: 1920,
+      width: 1080,
+      allowFontScaling: false,
+    );
     if (widget.displayMode == DisplayMode.WEEKS) {
       int lastPage = widget.getPageForDate(widget.endDate);
       pagesCount = lastPage + 1;
@@ -161,11 +168,12 @@ class CalendarroState extends State<Calendarro> {
 
     double widgetHeight;
     if (widget.displayMode == DisplayMode.WEEKS) {
-      widgetHeight = widget.calendarSize + widget.calendarSize;
+      widgetHeight = widget.calendarSize.h + widget.calendarSize.h;
     } else {
       var maxWeeksNumber = DateUtils.calculateMaxWeeksNumberMonthly(
           widget.startDate, widget.endDate);
-      widgetHeight = widget.calendarSize + maxWeeksNumber * widget.calendarSize;
+      widgetHeight =
+          widget.calendarSize.h + maxWeeksNumber * widget.calendarSize.h;
     }
 
     return Container(

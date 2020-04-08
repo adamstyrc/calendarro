@@ -30,18 +30,12 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ResponsiveWidgets.init(
-      context,
-      height: 1920,
-      width: 1080,
-      allowFontScaling: false,
-    );
     monthCalendarro = Calendarro(
       backgroundColor: Colors.black,
       startDayOffset: startDate.weekday - DateTime.monday,
       startDate: startDate,
       endDate: endDate,
-      calendarSize: 100.h,
+      calendarSize: 100,
       displayMode: DisplayMode.MONTHS,
       selectionMode: SelectionMode.MULTI,
       state: CalendarroState(
@@ -68,7 +62,7 @@ class MyHomePage extends StatelessWidget {
               startDayOffset: startDate.weekday - DateTime.monday,
               startDate: startDate,
               endDate: endDate,
-              calendarSize: 100.h,
+              calendarSize: 100,
               displayMode: DisplayMode.WEEKS,
               selectionMode: SelectionMode.SINGLE,
               state: CalendarroState(
