@@ -14,6 +14,7 @@ class CalendarroDayItem extends StatelessWidget {
     this.weekEndColor = Colors.red,
     this.fontFamily,
     this.fontSize,
+    this.allowPastDateSelection = true,
   });
 
   final DateTime date;
@@ -25,6 +26,7 @@ class CalendarroDayItem extends StatelessWidget {
   final Color weekEndColor;
   final String fontFamily;
   final double fontSize;
+  final bool allowPastDateSelection;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,14 @@ class CalendarroDayItem extends StatelessWidget {
 
     BoxDecoration boxDecoration;
     if (daySelected) {
-      boxDecoration =
-          BoxDecoration(color: selectedColor, shape: BoxShape.circle);
+      boxDecoration = BoxDecoration(
+        color: selectedColor,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: selectedColor,
+          width: 1.0,
+        ),
+      );
     } else if (isToday) {
       boxDecoration = BoxDecoration(
         border: Border.all(
@@ -73,8 +81,20 @@ class CalendarroDayItem extends StatelessWidget {
 
   void handleTap() {
     if (onTap != null) {
-      calendarroState.setSelectedDate(date);
-      onTap(date, calendarroState.isDateSelected(date));
+      if (allowPastDateSelection) {
+        calendarroState.setSelectedDate(date);
+        onTap(date, calendarroState.isDateSelected(date));
+      } else {
+        DateTime now = DateTime.now().toUtc();
+        if (date.isAfter(now)) {
+          print('date after now');
+          calendarroState.setSelectedDate(date);
+          onTap(date, calendarroState.isDateSelected(date));
+        } else if (date.day == now.day) {
+          calendarroState.setSelectedDate(date);
+          onTap(date, calendarroState.isDateSelected(date));
+        }
+      }
     }
 
     //calendarroState.setSelectedDate(date);

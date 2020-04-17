@@ -15,6 +15,7 @@ class DefaultDayTileBuilder extends DayTileBuilder {
       weekEndColor: Colors.red,
       selectedColor: Colors.green,
       fontSize: 30,
+      allowPastDateSelection: true,
     );
   }
 }
