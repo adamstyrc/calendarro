@@ -73,10 +73,11 @@ class CalendarroDayItem extends StatelessWidget {
 
   void handleTap() {
     if (onTap != null) {
-      onTap(date, !calendarroState.isDateSelected(date));
+      calendarroState.setSelectedDate(date);
+      onTap(date, calendarroState.isDateSelected(date));
     }
 
-    calendarroState.setSelectedDate(date);
+    //calendarroState.setSelectedDate(date);
     calendarroState.setCurrentDate(date);
   }
 

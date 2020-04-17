@@ -27,7 +27,6 @@ class Calendarro extends StatefulWidget {
   final CurrentPageCallback onPageSelected;
 
   final DateTime selectedSingleDate;
-  final List<DateTime> selectedDates;
 
   final int startDayOffset;
   final CalendarroState state;
@@ -41,7 +40,6 @@ class Calendarro extends StatefulWidget {
     this.displayMode = DisplayMode.WEEKS,
     this.dayTileBuilder,
     this.selectedSingleDate,
-    this.selectedDates,
     this.selectionMode = SelectionMode.SINGLE,
     this.onTap,
     this.onPageSelected,
