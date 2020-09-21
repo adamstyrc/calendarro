@@ -32,15 +32,23 @@ class CalendarroDayItem extends StatelessWidget {
 
     return Expanded(
         child: GestureDetector(
-          child: Container(
-              height: 40.0,
-              decoration: boxDecoration,
-              child: Center(
-                  child: Text(
-                    "${date.day}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: textColor),
-                  ))),
+          child: Column(
+            children: [
+              Container(
+                  height: 20.0,
+                  decoration: boxDecoration,
+                  child: Center(
+                      child: Text(
+                        "${date.day}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: textColor),
+                      ))),
+              Container(
+                //color: Colors.red,
+                height: 20.0,
+              )
+            ],
+          ),
           onTap: handleTap,
           behavior: HitTestBehavior.translucent,
         ));

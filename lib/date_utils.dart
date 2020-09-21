@@ -98,11 +98,13 @@ class DateUtils {
       DateTime endDate) {
     
     int monthsNumber = calculateMonthsDifference(startDate, endDate);
+    print("monthNumber: $monthsNumber");
     
     List<int> weeksNumbersMonthly = List();
-
+    print("$startDate,$endDate");
 
     if (monthsNumber == 0) {
+      print("HERE");
       return calculateWeeksNumber(startDate, endDate);
     } else {
       weeksNumbersMonthly.add(
@@ -112,6 +114,7 @@ class DateUtils {
       DateTime firstDateOfMonth = getFirstDayOfMonth(startDate);
       for (int i = 1; i <= monthsNumber - 2; i++) {
         firstDateOfMonth = firstDateOfMonth.add(Duration(days: 31));
+        print("firstDateofMonth :$firstDateOfMonth");
         weeksNumbersMonthly.add(
             calculateWeeksNumber(
                 firstDateOfMonth,
@@ -122,6 +125,8 @@ class DateUtils {
       weeksNumbersMonthly.add(
           calculateWeeksNumber(getFirstDayOfMonth(endDate), endDate)
       );
+
+      print(weeksNumbersMonthly);
 
       weeksNumbersMonthly.sort((a, b) => b.compareTo(a));
       return weeksNumbersMonthly[0];
