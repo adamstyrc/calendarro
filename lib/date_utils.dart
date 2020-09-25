@@ -112,6 +112,7 @@ class DateUtils {
       DateTime firstDateOfMonth = getFirstDayOfMonth(startDate);
       for (int i = 1; i <= monthsNumber - 2; i++) {
         firstDateOfMonth = firstDateOfMonth.add(Duration(days: 31));
+        firstDateOfMonth = getFirstDayOfMonth(firstDateOfMonth);
         weeksNumbersMonthly.add(
             calculateWeeksNumber(
                 firstDateOfMonth,
