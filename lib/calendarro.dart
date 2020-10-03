@@ -150,6 +150,7 @@ class CalendarroState extends State<Calendarro> {
     setState(() {
       switch (widget.selectionMode) {
         case SelectionMode.SINGLE:
+          print("setting single date");
           selectedSingleDate = date;
           break;
         case SelectionMode.MULTI:

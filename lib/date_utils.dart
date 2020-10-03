@@ -71,6 +71,17 @@ class DateUtils {
     return firstDayOfCurrentMonth;
   }
 
+  static DateTime subtractMonths(DateTime fromMonth, int months) {
+    DateTime firstDayOfCurrentMonth = fromMonth;
+    for (int i = 0; i < months; i++) {
+      firstDayOfCurrentMonth =
+          getFirstDayOfMonth(firstDayOfCurrentMonth)
+              .subtract(Duration(days: 1));
+    }
+
+    return firstDayOfCurrentMonth;
+  }
+
   static DateTime getFirstDayOfMonth(DateTime month) {
     print(month);
     return DateTime(month.year, month.month,1);
