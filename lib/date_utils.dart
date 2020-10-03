@@ -72,7 +72,8 @@ class DateUtils {
   }
 
   static DateTime getFirstDayOfMonth(DateTime month) {
-    return DateTime(month.year, month.month);
+    print(month);
+    return DateTime(month.year, month.month,1);
   }
   
   static DateTime getLastDayOfMonth(DateTime month) {
@@ -114,6 +115,7 @@ class DateUtils {
       DateTime firstDateOfMonth = getFirstDayOfMonth(startDate);
       for (int i = 1; i <= monthsNumber - 2; i++) {
         firstDateOfMonth = firstDateOfMonth.add(Duration(days: 31));
+        firstDateOfMonth = getFirstDayOfMonth(firstDateOfMonth);
         print("firstDateofMonth :$firstDateOfMonth");
         weeksNumbersMonthly.add(
             calculateWeeksNumber(

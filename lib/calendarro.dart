@@ -201,11 +201,10 @@ class CalendarroState extends State<Calendarro> {
       var maxWeeksNumber = DateUtils.calculateMaxWeeksNumberMonthly(
           widget.startDate,
           widget.endDate);
-      print("Max weeks number: $maxWeeksNumber");
       widgetHeight = widget.dayLabelHeight
           + maxWeeksNumber * widget.dayTileHeight;
     }
-    print("Widget height: $widgetHeight");
+    print(widgetHeight);
 
     return Container(
         height: widgetHeight,
