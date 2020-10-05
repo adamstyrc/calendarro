@@ -237,8 +237,8 @@ class CalendarroState extends State<Calendarro> {
             var dateBetweenDatesRange = (date.isAfter(selectedDates[0])
                 && date.isBefore(selectedDates[1]));
             return DateUtils.isSameDay(date, selectedDates[0])
-              || DateUtils.isSameDay(date, selectedDates[1])
-              || dateBetweenDatesRange;
+              || DateUtils.isSameDay(date, selectedDates[1]);
+              //|| dateBetweenDatesRange;
         }
         break;
     }
