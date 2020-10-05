@@ -48,6 +48,8 @@ class Calendarro extends StatefulWidget {
     this.onTap,
     this.onPageSelected,
     this.weekdayLabelsRow,
+    this.dayTileHeight,
+    this.dayLabelHeight
   }) : super(key: key) {
     if (startDate == null) {
       startDate = DateUtils.getFirstDayOfCurrentMonth();

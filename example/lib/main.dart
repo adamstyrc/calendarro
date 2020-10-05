@@ -117,6 +117,7 @@ class _CalenderState extends State<Calender> {
   var startDate = DateUtils.getFirstDayOfCurrentMonth();
   var endDate = DateTime(2021);
   List<DateTime> selectedDates = [];
+  DateTime singleSelectedDate;
   Calendarro monthCalendarro;
   @override
   Widget build(BuildContext context) {
@@ -128,8 +129,9 @@ class _CalenderState extends State<Calender> {
       startDate: startDate,
       endDate: endDate,
       displayMode: DisplayMode.MONTHS,
-      selectionMode: SelectionMode.RANGE,
+      selectionMode: SelectionMode.SINGLE,
       selectedDates: selectedDates,
+      selectedSingleDate: singleSelectedDate,
       weekdayLabelsRow: CustomWeekdayLabelsRow(),
       onPageSelected: (nextStartDate, nextEndDate){
         print("Selected $nextStartDate - $nextEndDate");
