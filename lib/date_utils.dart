@@ -83,7 +83,7 @@ class DateUtils {
   }
 
   static DateTime getFirstDayOfMonth(DateTime month) {
-    print(month);
+    //print(month);
     return DateTime(month.year, month.month,1);
   }
   
@@ -110,13 +110,13 @@ class DateUtils {
       DateTime endDate) {
     
     int monthsNumber = calculateMonthsDifference(startDate, endDate);
-    print("monthNumber: $monthsNumber");
+    //print("monthNumber: $monthsNumber");
     
     List<int> weeksNumbersMonthly = List();
-    print("$startDate,$endDate");
+    //print("$startDate,$endDate");
 
     if (monthsNumber == 0) {
-      print("HERE");
+      //print("HERE");
       return calculateWeeksNumber(startDate, endDate);
     } else {
       weeksNumbersMonthly.add(
@@ -127,7 +127,7 @@ class DateUtils {
       for (int i = 1; i <= monthsNumber - 2; i++) {
         firstDateOfMonth = firstDateOfMonth.add(Duration(days: 31));
         firstDateOfMonth = getFirstDayOfMonth(firstDateOfMonth);
-        print("firstDateofMonth :$firstDateOfMonth");
+        //print("firstDateofMonth :$firstDateOfMonth");
         weeksNumbersMonthly.add(
             calculateWeeksNumber(
                 firstDateOfMonth,
@@ -139,7 +139,7 @@ class DateUtils {
           calculateWeeksNumber(getFirstDayOfMonth(endDate), endDate)
       );
 
-      print(weeksNumbersMonthly);
+      //print(weeksNumbersMonthly);
 
       weeksNumbersMonthly.sort((a, b) => b.compareTo(a));
       return weeksNumbersMonthly[0];

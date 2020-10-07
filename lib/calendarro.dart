@@ -207,7 +207,7 @@ class CalendarroState extends State<Calendarro> {
       widgetHeight = widget.dayLabelHeight
           + maxWeeksNumber * widget.dayTileHeight;
     }
-    print(widgetHeight);
+    //print(widgetHeight);
 
     return Container(
         height: widgetHeight,
