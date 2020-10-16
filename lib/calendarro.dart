@@ -36,6 +36,8 @@ class Calendarro extends StatefulWidget {
   double dayTileHeight = 40.0;
   double dayLabelHeight = 20.0;
 
+  ScrollPhysics scrollPhysics;
+
   Calendarro({
     Key key,
     this.startDate,
@@ -48,6 +50,7 @@ class Calendarro extends StatefulWidget {
     this.onTap,
     this.onPageSelected,
     this.weekdayLabelsRow,
+    this.scrollPhysics,
   }) : super(key: key) {
     if (startDate == null) {
       startDate = DateUtils.getFirstDayOfCurrentMonth();
@@ -181,6 +184,7 @@ class CalendarroState extends State<Calendarro> {
     }
 
     pageView = PageView.builder(
+      physics: widget.scrollPhysics,
       itemBuilder: (context, position) => _buildCalendarPage(position),
       itemCount: pagesCount,
       controller: PageController(
