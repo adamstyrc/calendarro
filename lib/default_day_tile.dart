@@ -1,5 +1,5 @@
 import 'package:calendarro/calendarro.dart';
-import 'package:calendarro/date_utils.dart';
+import 'package:calendarro/date_utils.dart' as dateUtil;
 import 'package:flutter/material.dart';
 
 class CalendarroDayItem extends StatelessWidget {
@@ -11,9 +11,9 @@ class CalendarroDayItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isWeekend = DateUtils.isWeekend(date);
+    bool isWeekend = dateUtil.DateUtils.isWeekend(date);
     var textColor = isWeekend ? Colors.grey : Colors.black;
-    bool isToday = DateUtils.isToday(date);
+    bool isToday = dateUtil.DateUtils.isToday(date);
     calendarroState = Calendarro.of(context);
 
     bool daySelected = calendarroState.isDateSelected(date);
@@ -32,18 +32,18 @@ class CalendarroDayItem extends StatelessWidget {
 
     return Expanded(
         child: GestureDetector(
-          child: Container(
-              height: 40.0,
-              decoration: boxDecoration,
-              child: Center(
-                  child: Text(
-                    "${date.day}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: textColor),
-                  ))),
-          onTap: handleTap,
-          behavior: HitTestBehavior.translucent,
-        ));
+      child: Container(
+          height: 40.0,
+          decoration: boxDecoration,
+          child: Center(
+              child: Text(
+            "${date.day}",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: textColor),
+          ))),
+      onTap: handleTap,
+      behavior: HitTestBehavior.translucent,
+    ));
   }
 
   void handleTap() {
