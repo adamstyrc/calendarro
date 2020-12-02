@@ -48,6 +48,8 @@ class Calendarro extends StatefulWidget {
     this.onTap,
     this.onPageSelected,
     this.weekdayLabelsRow,
+    this.dayTileHeight,
+    this.dayLabelHeight
   }) : super(key: key) {
     if (startDate == null) {
       startDate = DateUtils.getFirstDayOfCurrentMonth();
@@ -150,6 +152,7 @@ class CalendarroState extends State<Calendarro> {
     setState(() {
       switch (widget.selectionMode) {
         case SelectionMode.SINGLE:
+          print("setting single date");
           selectedSingleDate = date;
           break;
         case SelectionMode.MULTI:
@@ -204,6 +207,7 @@ class CalendarroState extends State<Calendarro> {
       widgetHeight = widget.dayLabelHeight
           + maxWeeksNumber * widget.dayTileHeight;
     }
+    //print(widgetHeight);
 
     return Container(
         height: widgetHeight,
