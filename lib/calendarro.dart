@@ -78,9 +78,12 @@ class Calendarro extends StatefulWidget {
   }
 
   static CalendarroState of(BuildContext context) => context.findAncestorStateOfType<CalendarroState>();
-
+  
   @override
-  CalendarroState createState() => new CalendarroState(selectedSingleDate: selectedSingleDate, selectedDates: selectedDates);
+  CalendarroState createState() {
+    state = CalendarroState(selectedSingleDate: selectedSingleDate, selectedDates: selectedDates);
+    return state;
+  }
 
   void setSelectedDate(DateTime date) {
     state.setSelectedDate(date);
