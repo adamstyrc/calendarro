@@ -77,8 +77,8 @@ class Calendarro extends StatefulWidget {
     }
   }
 
-  static CalendarroState of(BuildContext context) =>
-      context.ancestorStateOfType(const TypeMatcher<CalendarroState>());
+//   static CalendarroState of(BuildContext context) =>
+//       context.ancestorStateOfType(const TypeMatcher<CalendarroState>());
 
   @override
   CalendarroState createState() {
