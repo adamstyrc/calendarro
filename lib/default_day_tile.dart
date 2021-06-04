@@ -1,6 +1,6 @@
 import 'package:calendarro/calendarro.dart';
 import 'package:calendarro/date_utils.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DateUtils;
 
 class CalendarroDayItem extends StatelessWidget {
   CalendarroDayItem({this.date, this.calendarroState, this.onTap});

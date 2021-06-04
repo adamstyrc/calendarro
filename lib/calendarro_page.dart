@@ -1,7 +1,7 @@
 import 'package:calendarro/calendarro.dart';
 import 'package:calendarro/date_utils.dart';
 import 'package:calendarro/default_weekday_labels_row.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DateUtils;
 
 class CalendarroPage extends StatelessWidget {
 
