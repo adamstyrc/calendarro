@@ -7,7 +7,12 @@ class DefaultDayTileBuilder extends DayTileBuilder {
   DefaultDayTileBuilder();
 
   @override
-  Widget build(BuildContext context, DateTime date, DateTimeCallback onTap) {
-    return CalendarroDayItem(date: date, calendarroState: Calendarro.of(context), onTap: onTap);
+  Widget build(BuildContext context, DateTime date, DateTimeCallback? onTap) {
+    final state = Calendarro.of(context);
+    if (state == null) {
+      throw StateError('calendarroState is null');
+    }
+
+    return CalendarroDayItem(date: date, calendarroState: state, onTap: onTap);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:calendarro/calendarro.dart';
 import 'package:calendarro/date_utils.dart';
 import 'package:calendarro/default_weekday_labels_row.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DateUtils;
 
 class CalendarroPage extends StatelessWidget {
 
@@ -14,12 +14,10 @@ class CalendarroPage extends StatelessWidget {
   int startDayOffset;
 
   CalendarroPage({
-    this.pageStartDate,
-    this.pageEndDate,
-    this.weekdayLabelsRow
-  }) {
-    startDayOffset = pageStartDate.weekday - DateTime.monday;
-  }
+    required this.pageStartDate,
+    required this.pageEndDate,
+    required this.weekdayLabelsRow
+  }) : startDayOffset = pageStartDate.weekday - DateTime.monday;
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +69,15 @@ class CalendarroPage extends StatelessWidget {
 
   List<Widget> buildCalendarRow(
       BuildContext context, DateTime rowStartDate, DateTime rowEndDate) {
-    List<Widget> items = [];
+    CalendarroState? calendarroState = Calendarro.of(context);
+    if (calendarroState == null) {
+      throw StateError('calendarroState is null');
+    }
 
+    List<Widget> items = [];
     DateTime currentDate = rowStartDate;
     for (int i = 0; i < 7; i++) {
       if (i + 1 >= rowStartDate.weekday && i + 1 <= rowEndDate.weekday) {
-        CalendarroState calendarroState = Calendarro.of(context);
           Widget dayTile = calendarroState.widget.dayTileBuilder
               .build(context, currentDate, calendarroState.widget.onTap);
           items.add(dayTile);
