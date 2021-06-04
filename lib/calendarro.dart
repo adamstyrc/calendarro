@@ -62,27 +62,27 @@ class Calendarro extends StatefulWidget {
     }
   }
 
-  static CalendarroState of(BuildContext context) =>
-      context.ancestorStateOfType(const TypeMatcher<CalendarroState>());
+  static CalendarroState? of(BuildContext context) =>
+      context.findAncestorStateOfType<CalendarroState>();
 
   @override
   CalendarroState createState() {
     state = CalendarroState(
         selectedSingleDate: selectedSingleDate,
         selectedDates: selectedDates);
-    return state;
+    return state!;
   }
 
   void setSelectedDate(DateTime date) {
-    state.setSelectedDate(date);
+    state?.setSelectedDate(date);
   }
 
   void toggleDate(DateTime date) {
-    state.toggleDateSelection(date);
+    state?.toggleDateSelection(date);
   }
 
   void setCurrentDate(DateTime date) {
-    state.setCurrentDate(date);
+    state?.setCurrentDate(date);
   }
 
   int getPositionOfDate(DateTime date) {
@@ -179,7 +179,7 @@ class CalendarroState extends State<Calendarro> {
       onPageChanged: (page) {
         if (widget.onPageSelected != null) {
           DateRange pageDateRange = _calculatePageDateRange(page);
-          widget.onPageSelected(pageDateRange.startDate, pageDateRange.endDate);
+          widget.onPageSelected?.call(pageDateRange.startDate, pageDateRange.endDate);
         }
       },
     );
