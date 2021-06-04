@@ -19,15 +19,14 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final String title;
-  Calendarro monthCalendarro;
 
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var startDate = DateUtils.getFirstDayOfCurrentMonth();
     var endDate = DateUtils.getLastDayOfNextMonth();
-    monthCalendarro = Calendarro(
+    final monthCalendarro = Calendarro(
         startDate: startDate,
         endDate: endDate,
         displayMode: DisplayMode.MONTHS,
