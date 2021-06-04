@@ -126,15 +126,15 @@ class Calendarro extends StatefulWidget {
 }
 
 class CalendarroState extends State<Calendarro> {
-  DateTime selectedSingleDate;
+  DateTime? selectedSingleDate;
   List<DateTime> selectedDates;
 
-  int pagesCount;
-  PageView pageView;
+  int pagesCount = -1;
+  PageView? pageView;
 
   CalendarroState({
     this.selectedSingleDate,
-    this.selectedDates
+    required this.selectedDates
   });
 
   @override
@@ -165,7 +165,7 @@ class CalendarroState extends State<Calendarro> {
   void setCurrentDate(DateTime date) {
     setState(() {
       int page = widget.getPageForDate(date);
-      pageView.controller.jumpToPage(page);
+      pageView?.controller.jumpToPage(page);
     });
   }
 
@@ -180,12 +180,13 @@ class CalendarroState extends State<Calendarro> {
           widget.endDate) + 1;
     }
 
+    final selectedDate = selectedSingleDate;
     pageView = PageView.builder(
       itemBuilder: (context, position) => _buildCalendarPage(position),
       itemCount: pagesCount,
       controller: PageController(
           initialPage:
-          selectedSingleDate != null ? widget.getPageForDate(selectedSingleDate) : 0),
+          selectedDate != null ? widget.getPageForDate(selectedDate) : 0),
       onPageChanged: (page) {
         if (widget.onPageSelected != null) {
           DateRange pageDateRange = _calculatePageDateRange(page);
@@ -213,7 +214,10 @@ class CalendarroState extends State<Calendarro> {
   bool isDateSelected(DateTime date) {
     switch (widget.selectionMode) {
       case SelectionMode.SINGLE:
-        return DateUtils.isSameDay(selectedSingleDate, date);
+        final selectedDate = selectedSingleDate;
+        return selectedDate == null
+            ? false
+            : DateUtils.isSameDay(selectedDate, date);
         break;
       case SelectionMode.MULTI:
         final matchedSelectedDate = selectedDates.firstWhereOrNull(
