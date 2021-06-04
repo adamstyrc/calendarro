@@ -99,7 +99,7 @@ class DateUtils {
     
     int monthsNumber = calculateMonthsDifference(startDate, endDate);
     
-    List<int> weeksNumbersMonthly = List();
+    List<int> weeksNumbersMonthly = [];
 
 
     if (monthsNumber == 0) {
