@@ -216,10 +216,8 @@ class CalendarroState extends State<Calendarro> {
         return DateUtils.isSameDay(selectedSingleDate, date);
         break;
       case SelectionMode.MULTI:
-        final matchedSelectedDate = selectedDates.firstWhere((currentDate) =>
-            DateUtils.isSameDay(currentDate, date),
-            orElse: () => null
-        );
+        final matchedSelectedDate = selectedDates.firstWhereOrNull(
+                (currentDate) => DateUtils.isSameDay(currentDate, date));
 
         return matchedSelectedDate != null;
         break;
@@ -363,15 +361,20 @@ class CalendarroState extends State<Calendarro> {
   }
 
   void _setMultiSelectedDate(DateTime date) {
-    final alreadyExistingDate = selectedDates.firstWhere((currentDate) =>
-        DateUtils.isSameDay(currentDate, date),
-        orElse: () => null
-    );
+    final alreadyExistingDate = selectedDates.firstWhereOrNull((currentDate) =>
+        DateUtils.isSameDay(currentDate, date));
 
     if (alreadyExistingDate != null) {
       selectedDates.remove(alreadyExistingDate);
     } else {
       selectedDates.add(date);
     }
+  }
+}
+
+extension IterableExt<T> on Iterable<T> {
+  T? firstWhereOrNull(bool Function(T element) test) {
+    final list = where(test);
+    return list.isEmpty ? null : list.first;
   }
 }
