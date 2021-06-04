@@ -14,12 +14,10 @@ class CalendarroPage extends StatelessWidget {
   int startDayOffset;
 
   CalendarroPage({
-    this.pageStartDate,
-    this.pageEndDate,
-    this.weekdayLabelsRow
-  }) {
-    startDayOffset = pageStartDate.weekday - DateTime.monday;
-  }
+    required this.pageStartDate,
+    required this.pageEndDate,
+    required this.weekdayLabelsRow
+  }) : startDayOffset = pageStartDate.weekday - DateTime.monday;
 
   @override
   Widget build(BuildContext context) {
